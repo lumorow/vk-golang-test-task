@@ -1,8 +1,14 @@
 package service
 
-import "filmlib/server/internal/repository"
+import (
+	"filmlib/server/internal/entity"
+	"filmlib/server/internal/repository"
+)
 
 type Authorization interface {
+	CreateUser(user entity.User) (int, error)
+	GenerateToken(username, password string) (string, error)
+	ParseToken(token string) (int, error)
 }
 
 type Actor interface {

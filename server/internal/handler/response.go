@@ -1,9 +1,12 @@
 package handler
 
-type errorResponse struct {
-	Message string `json:"message"`
-}
+import (
+	"github.com/sirupsen/logrus"
+	"net/http"
+)
 
-type statusResponse struct {
-	Status string `json:"status"`
+func newErrorResponse(w http.ResponseWriter, statusCode int, message string) {
+	logrus.Error(message)
+	w.WriteHeader(statusCode)
+	w.Write([]byte(message))
 }

@@ -22,7 +22,7 @@ services:
     image: postgres:latest
     container_name: postgres
     environment:
-      POSTGRES_DB: commands
+      POSTGRES_DB: film-library
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
     ports:

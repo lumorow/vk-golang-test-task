@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "films" (
     UNIQUE (name, description, releaseDay, rating)
 );
 
-CREATE TABLE IF NOT EXISTS "actor_film" (
+CREATE TABLE IF NOT EXISTS "actors_films" (
     id        serial PRIMARY KEY,
     actor_id int NOT NULL REFERENCES actors ON DELETE CASCADE,
     film_id   int NOT NULL REFERENCES films ON DELETE CASCADE,

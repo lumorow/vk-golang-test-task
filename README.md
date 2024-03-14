@@ -10,5 +10,3 @@
 #### 1.2 Docker compose
 - Склонировать репозиторий
 - ```make build```: start docker containers
-
-### 2. Схема раб

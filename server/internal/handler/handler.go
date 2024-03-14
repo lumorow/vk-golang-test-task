@@ -37,7 +37,6 @@ func (h *Handler) InitRoutes() *http.ServeMux {
 
 	mux.Handle("/film", h)
 
-	// Update && Delete film
 	mux.Handle("/film/", h)
 
 	mux.Handle("/film", h)
@@ -75,60 +74,8 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Get films with actor name fragment or film name fragment
 	case r.Method == http.MethodGet && FilmsReWithIDAndFragment.MatchString(r.URL.Path):
 		h.GetFilmWithFragment(w, r)
+	default:
+		newErrorResponse(w, http.StatusNotFound, "404 Not Found")
 	}
 
 }
-
-//
-//func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-//	switch r.URL.Path {
-//	case "/actors":
-//		switch r.Method {
-//		case http.MethodPost:
-//			h.CreateActor(w, r)
-//		default:
-//			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-//		}
-//	case "/actors/{actor_id}":
-//		switch r.Method {
-//		case http.MethodPut:
-//			h.UpdateActorById(w, r)
-//		case http.MethodDelete:
-//			h.DeleteActorById(w, r)
-//		default:
-//			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-//		}
-//	case "/actors/{actors_id}/films":
-//		switch r.Method {
-//		case http.MethodGet:
-//			h.GetActorFilms(w, r)
-//		default:
-//			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-//		}
-//	case "/film":
-//		switch r.Method {
-//		case http.MethodPost:
-//			h.CreateFilm(w, r)
-//		default:
-//			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-//		}
-//	case "/films/{film_id}":
-//		switch r.Method {
-//		case http.MethodPut:
-//			h.UpdateFilmById(w, r)
-//		case http.MethodDelete:
-//			h.DeleteFilmById(w, r)
-//		default:
-//			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-//		}
-//	case "/films/search":
-//		switch r.Method {
-//		case http.MethodGet:
-//			h.SearchFilms(w, r)
-//		default:
-//			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-//		}
-//	default:
-//		http.Error(w, "Not Found", http.StatusNotFound)
-//	}
-//}
