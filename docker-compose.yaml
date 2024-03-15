@@ -7,7 +7,7 @@ services:
       DB_PORT: 5432
       DB_USER: root
       DB_PASSWORD: password
-      DB_NAME: commands
+      DB_NAME: film-library
       DB_SSLMODE: disable
     container_name: command-launcher
     build: ./
