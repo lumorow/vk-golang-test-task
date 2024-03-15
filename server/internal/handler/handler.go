@@ -31,8 +31,8 @@ func (h *Handler) InitRoutes() *http.ServeMux {
 
 	middleware := h.userIdentity(mux)
 
-	mux.Handle("/sign-in", middleware)
-	mux.Handle("/sign-up/", middleware)
+	mux.Handle("/sign-in", h)
+	mux.Handle("/sign-up/", h)
 
 	mux.Handle("api/actor", middleware)
 	mux.Handle("api/actor/", middleware)
@@ -42,6 +42,9 @@ func (h *Handler) InitRoutes() *http.ServeMux {
 	mux.Handle("api/film/", middleware)
 	mux.Handle("api/films", middleware)
 	mux.Handle("api/films/", middleware)
+
+	mux.Handle("api/swagger.json", http.FileServer(http.Dir("server/docs")))
+
 	return mux
 }
 
@@ -88,7 +91,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	// Get films with actor name fragment or film name fragment
 	case r.Method == http.MethodGet && FilmsReWithIDAndFragment.MatchString(r.URL.Path):
-		h.GetFilmWithFragment(w, r)
+		h.GetFilmsWithFragment(w, r)
 		return
 	// Get swagger API
 	// TODO: add swagger API

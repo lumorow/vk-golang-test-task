@@ -1,7 +1,5 @@
 package service
 
-import "filmlib/server/internal/entity"
-
-func (fs *FilmService) DeleteFilmById(id int, actor entity.Film) error {
+func (fs *FilmService) DeleteFilmById(id int) error {
 	return nil
 }

@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS "users" (
     "id"            serial PRIMARY KEY,
-    "name"          varchar not null,
     "username"      varchar(255) not null unique,
-    "password_hash" varchar(255) not null
+    "password_hash" varchar(255) not null,
+    "role" VARCHAR(20) NOT NULL CHECK (role IN ('user', 'admin'))
 );
 
 CREATE TABLE IF NOT EXISTS "actors" (

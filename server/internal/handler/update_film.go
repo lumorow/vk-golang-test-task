@@ -1,7 +1,51 @@
 package handler
 
-import "net/http"
+import (
+	"encoding/json"
+	"filmlib/server/internal/entity"
+	"github.com/gosimple/slug"
+	"net/http"
+	"strconv"
+)
 
+// UpdateFilmById updates a film by its ID in the system.
+// @Summary Update film by ID
+// @Description Updates a film with the specified ID based on the data passed in the request body.
+// @Tags Films
+// @Param id path integer true "Film ID to update"
+// @Accept  json
+// @Produce  json
+// @Param film body FilmInput true "Data of the film to update"
+// @Success 200 {string} string "Film updated successfully"
+// @Failure 400 {string} string "Invalid film ID param or request data"
+// @Failure 500 {string} string "Internal server error"
+// @Router /film/{id} [patch]
 func (h *Handler) UpdateFilmById(w http.ResponseWriter, r *http.Request) {
+	matches := FilmReWithID.FindStringSubmatch(r.URL.Path)
+	if len(matches) < 2 {
+		newErrorResponse(w, http.StatusBadRequest, "invalid film id param")
+		return
+	}
 
+	filmId, err := strconv.Atoi(matches[1])
+	if err != nil {
+		newErrorResponse(w, http.StatusBadRequest, "invalid film id param")
+		return
+	}
+
+	var input entity.Film
+
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		newErrorResponse(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	input.Name = slug.Make(input.Name)
+
+	if err := h.services.UpdateFilmById(filmId, input); err != nil {
+		newErrorResponse(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 }

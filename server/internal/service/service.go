@@ -13,17 +13,17 @@ type Authorization interface {
 
 type Actor interface {
 	CreateActor(actor entity.Actor) (int, error)
-	DeleteActorById(id int, actor entity.Actor) error
+	DeleteActorById(id int) error
 	UpdateActorById(id int, actor entity.Actor) error
-	GetActorsWithFilms(id []int) ([]entity.ActorFilms, error)
+	GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error)
 }
 
 type Film interface {
 	CreateFilm(actor entity.Film) (int, error)
-	DeleteFilmById(id int, actor entity.Film) error
+	DeleteFilmById(id int) error
 	UpdateFilmById(id int, actor entity.Film) error
 	GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
-	GetFilmsWithSort(sortMode string) ([]entity.Film, error)
+	GetFilmsWithSort(sortMode string, filmsId []int) ([]entity.Film, error)
 }
 
 type Service struct {
