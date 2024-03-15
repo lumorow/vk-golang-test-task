@@ -2,13 +2,16 @@ package handler
 
 import (
 	"context"
+	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
 const (
 	authorizationHeader = "Authorization"
-	userCtx             = "userId"
+	userRoleHeader      = "userRole"
+	UserIdHeader        = "userId"
 )
 
 func (h *Handler) userIdentity(next http.Handler) http.Handler {
@@ -21,33 +24,46 @@ func (h *Handler) userIdentity(next http.Handler) http.Handler {
 
 		headerParts := strings.Split(header, " ")
 		if len(headerParts) != 2 {
-			newErrorResponse(w, http.StatusUnauthorized, "invalid auth header)
+			newErrorResponse(w, http.StatusUnauthorized, "invalid auth header")
 			return
 		}
 
-		userId, err := h.services.ParseToken(headerParts[1])
+		userId, userRole, err := h.services.ParseToken(headerParts[1])
 		if err != nil {
 			newErrorResponse(w, http.StatusUnauthorized, err.Error())
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), userCtx, userId)
+		ctx := context.WithValue(r.Context(), UserIdHeader, userId)
+		ctx = context.WithValue(ctx, userRoleHeader, userRole)
+
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
 func getUserId(w http.ResponseWriter, r *http.Request) (int, error) {
-	id, ok := r.Header.Get(userCtx)
-	if !ok {
-		newErrorResponse(c, http.StatusInternalServerError, "user id not found")
+	id := r.Header.Get(UserIdHeader)
+	if len(id) == 0 {
+		newErrorResponse(w, http.StatusInternalServerError, "user id not found")
 		return 0, errors.New("user id not found")
 	}
 
-	idInt, ok := id.(int)
-	if !ok {
-		newErrorResponse(c, http.StatusInternalServerError, "user id is of invalid type")
+	idInt, err := strconv.Atoi(id)
+	if err != nil {
+		newErrorResponse(w, http.StatusInternalServerError, "user id is of invalid type")
 		return 0, errors.New("user id not found")
 	}
 
 	return idInt, nil
+}
+
+func checkAdminRule(w http.ResponseWriter, r *http.Request) error {
+	role := r.Header.Get(userRoleHeader)
+
+	if role != "admin" {
+		newErrorResponse(w, http.StatusInternalServerError, "not enough rights")
+		return errors.New("not enough rights")
+	}
+
+	return nil
 }

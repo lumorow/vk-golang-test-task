@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 )
@@ -15,6 +16,16 @@ import (
 // @Failure 500 {string} string "Internal server error"
 // @Router /film/{id} [delete]
 func (h *Handler) DeleteFilmById(w http.ResponseWriter, r *http.Request) {
+	userId, err := getUserId(w, r)
+	if err != nil {
+		return
+	}
+
+	err = checkAdminRule(w, r)
+	if err != nil {
+		return
+	}
+
 	matches := FilmReWithID.FindStringSubmatch(r.URL.Path)
 	if len(matches) < 2 {
 		newErrorResponse(w, http.StatusBadRequest, "invalid film id param")
@@ -32,5 +43,6 @@ func (h *Handler) DeleteFilmById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	logrus.Printf("user id: %d delete film with id: %d", userId, filmId)
 	w.WriteHeader(http.StatusOK)
 }

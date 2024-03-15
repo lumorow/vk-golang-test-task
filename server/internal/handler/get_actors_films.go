@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 )
@@ -19,6 +20,11 @@ import (
 // @Failure 500 {string} string "Internal server error"
 // @Router /actors [get]
 func (h *Handler) GetActorsWithFilms(w http.ResponseWriter, r *http.Request) {
+	userId, err := getUserId(w, r)
+	if err != nil {
+		return
+	}
+
 	queryValues := r.URL.Query()["id"]
 
 	if len(queryValues) == 0 {
@@ -50,6 +56,7 @@ func (h *Handler) GetActorsWithFilms(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	logrus.Printf("user id: %d get actors: %s with associated films", userId, queryValues)
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonBytes)
 }

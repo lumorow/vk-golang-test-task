@@ -5,6 +5,7 @@ import (
 	"filmlib/server/internal/entity"
 	"fmt"
 	"github.com/gosimple/slug"
+	"github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -20,6 +21,16 @@ import (
 // @Failure 500 {string} string "Internal server error"
 // @Router /film [post]
 func (h *Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
+	userId, err := getUserId(w, r)
+	if err != nil {
+		return
+	}
+
+	err = checkAdminRule(w, r)
+	if err != nil {
+		return
+	}
+
 	var input entity.Film
 
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
@@ -35,6 +46,7 @@ func (h *Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	logrus.Printf("user id: %d add film with id: %d", userId, id)
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(fmt.Sprintf("id: %d", id)))
 }

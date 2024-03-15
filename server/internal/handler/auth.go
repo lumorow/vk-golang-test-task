@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"filmlib/server/internal/entity"
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -20,6 +21,8 @@ func (h *Handler) signUp(w http.ResponseWriter, r *http.Request) {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
 	}
+
+	logrus.Printf("sign up user with id: %d", id)
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(fmt.Sprintf("id: %d", id)))
@@ -43,6 +46,8 @@ func (h *Handler) signIn(w http.ResponseWriter, r *http.Request) {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
 	}
+
+	logrus.Printf("sign in user with name: %s", input.Username)
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(fmt.Sprintf("token: %s", token)))
