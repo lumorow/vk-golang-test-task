@@ -11,9 +11,19 @@ type Authorization interface {
 }
 
 type Actor interface {
+	CreateActor(actor entity.Actor) (int, error)
+	DeleteActorById(id int, actor entity.Actor) error
+	UpdateActorById(id int, actor entity.Actor) error
+	GetActorsWithFilms(id []int) ([]entity.ActorFilms, error)
 }
 
 type Film interface {
+	CreateFilm(actor entity.Film) (int, error)
+	DeleteFilmById(id int, actor entity.Film) error
+	UpdateFilmById(id int, actor entity.Film) error
+	GetFilmsByActorId(actorId int) ([]entity.Film, error)
+	GetFilmsWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
+	GetFilmsWithSort(sortMode string) ([]entity.Film, error)
 }
 
 type Repository struct {

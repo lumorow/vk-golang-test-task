@@ -22,7 +22,7 @@ import (
 // @version 1.0
 // description Film library application management
 // @host localhost:8000
-// @BasePath /
+// @BasePath /api
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 

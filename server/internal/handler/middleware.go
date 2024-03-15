@@ -11,31 +11,29 @@ const (
 	userCtx             = "userId"
 )
 
-func userIdentity(h *Handler) func(next http.Handler) http.Handler {
-	return func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			header := r.Header.Get(authorizationHeader)
-			if header == "" {
-				newErrorResponse(w, http.StatusUnauthorized, "пустой заголовок авторизации")
-				return
-			}
+func (h *Handler) userIdentity(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		header := r.Header.Get(authorizationHeader)
+		if header == "" {
+			newErrorResponse(w, http.StatusUnauthorized, "пустой заголовок авторизации")
+			return
+		}
 
-			headerParts := strings.Split(header, " ")
-			if len(headerParts) != 2 {
-				newErrorResponse(w, http.StatusUnauthorized, "неверный заголовок авторизации")
-				return
-			}
+		headerParts := strings.Split(header, " ")
+		if len(headerParts) != 2 {
+			newErrorResponse(w, http.StatusUnauthorized, "неверный заголовок авторизации")
+			return
+		}
 
-			userId, err := h.services.ParseToken(headerParts[1])
-			if err != nil {
-				newErrorResponse(w, http.StatusUnauthorized, err.Error())
-				return
-			}
+		userId, err := h.services.ParseToken(headerParts[1])
+		if err != nil {
+			newErrorResponse(w, http.StatusUnauthorized, err.Error())
+			return
+		}
 
-			ctx := context.WithValue(r.Context(), userCtx, userId)
-			next.ServeHTTP(w, r.WithContext(ctx))
-		})
-	}
+		ctx := context.WithValue(r.Context(), userCtx, userId)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
 }
 
 //func getUserId(w http.ResponseWriter, r *http.Request) (int, error) {

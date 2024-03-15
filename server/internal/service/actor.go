@@ -10,7 +10,7 @@ type ActorService struct {
 }
 
 func NewActorService(actorRepo repository.Actor, filmRepo repository.Film) Actor {
-	return ActorService{
+	return &ActorService{
 		actorRepo,
 		filmRepo,
 	}

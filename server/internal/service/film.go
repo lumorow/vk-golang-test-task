@@ -3,11 +3,13 @@ package service
 import "filmlib/server/internal/repository"
 
 type FilmService struct {
-	filmRepo repository.Film
+	actorRepo repository.Actor
+	filmRepo  repository.Film
 }
 
-func NewFilmService(filmRepo repository.Film) Film {
-	return FilmService{
+func NewFilmService(actorRepo repository.Actor, filmRepo repository.Film) Film {
+	return &FilmService{
+		actorRepo,
 		filmRepo,
 	}
 }
