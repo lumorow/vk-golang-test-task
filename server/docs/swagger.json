@@ -10,6 +10,11 @@
     "paths": {
         "/actor": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Creates a new actor.",
                 "consumes": [
                     "application/json"
@@ -56,6 +61,11 @@
         },
         "/actor/{id}": {
             "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Deletes an actor with the specified ID.",
                 "tags": [
                     "Actors"
@@ -92,6 +102,11 @@
                 }
             },
             "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Updates an actor with the specified ID based on the data passed in the request body.",
                 "consumes": [
                     "application/json"
@@ -145,6 +160,11 @@
         },
         "/actors": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Returns actors with their associated films based on the provided actor IDs.",
                 "consumes": [
                     "application/json"
@@ -199,6 +219,11 @@
         },
         "/film": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Creates a new film.",
                 "consumes": [
                     "application/json"
@@ -245,6 +270,11 @@
         },
         "/film/{id}": {
             "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Deletes a film with the specified ID.",
                 "tags": [
                     "Films"
@@ -281,6 +311,11 @@
                 }
             },
             "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "Updates a film with the specified ID based on the data passed in the request body.",
                 "consumes": [
                     "application/json"
@@ -334,6 +369,11 @@
         },
         "/films": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "This endpoint allows searching for films based on actor name and film name fragments.",
                 "consumes": [
                     "application/json"
@@ -391,6 +431,11 @@
         },
         "/films/sortType": {
             "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "description": "This endpoint retrieves films sorted by the specified criteria and associated with the provided actor IDs.",
                 "consumes": [
                     "application/json"

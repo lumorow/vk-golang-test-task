@@ -27,7 +27,7 @@ swagger_init:
 .PHONY: swag_ui
 swag_ui:
 	@echo "Open swagger index.html"
-	open http://localhost:8000/swagger/index.html
+	open http://localhost:8000/api/swagger
 
 .PHONY: build
 build: deps swagger_init

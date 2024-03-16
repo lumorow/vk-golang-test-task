@@ -86,6 +86,8 @@ paths:
           description: Internal server error
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: Create actor
       tags:
       - Actors
@@ -111,6 +113,8 @@ paths:
           description: Internal server error
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: Delete actor by ID
       tags:
       - Actors
@@ -146,6 +150,8 @@ paths:
           description: Internal server error
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: Update actor by ID
       tags:
       - Actors
@@ -183,6 +189,8 @@ paths:
           description: Internal server error
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: Get actors with associated films
       tags:
       - Actors
@@ -213,6 +221,8 @@ paths:
           description: Internal server error
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: Create film
       tags:
       - Films
@@ -238,6 +248,8 @@ paths:
           description: Internal server error
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: Delete film by ID
       tags:
       - Films
@@ -273,6 +285,8 @@ paths:
           description: Internal server error
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: Update film by ID
       tags:
       - Films
@@ -312,6 +326,8 @@ paths:
           description: Internal server error
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: Search for films by actor name and film name fragments
       tags:
       - Films
@@ -353,6 +369,8 @@ paths:
           description: Internal server error
           schema:
             type: string
+      security:
+      - ApiKeyAuth: []
       summary: Retrieve films sorted by criteria and associated with actors
       tags:
       - Films

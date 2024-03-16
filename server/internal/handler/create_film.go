@@ -16,6 +16,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param film body entity.Film true "Data of the new film"
+// @Security ApiKeyAuth
 // @Success 200 {integer} integer "ID of the created film"
 // @Failure 400 {string} string "Invalid request data"
 // @Failure 500 {string} string "Internal server error"

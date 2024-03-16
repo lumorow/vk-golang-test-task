@@ -16,6 +16,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param actor body entity.Actor true "Data of the new actor"
+// @Security ApiKeyAuth
 // @Success 200 {integer} integer "ID of the created actor"
 // @Failure 400 {string} string "Invalid request data"
 // @Failure 500 {string} string "Internal server error"

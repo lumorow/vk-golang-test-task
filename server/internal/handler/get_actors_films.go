@@ -15,6 +15,7 @@ import (
 // @Param id query []int true "Actor IDs"
 // @Accept  json
 // @Produce  json
+// @Security ApiKeyAuth
 // @Success 200 {array} []entity.ActorFilms "OK"
 // @Failure 400 {string} string "Invalid request or invalid actor ID"
 // @Failure 500 {string} string "Internal server error"

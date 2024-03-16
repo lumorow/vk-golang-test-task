@@ -11,6 +11,7 @@ import (
 // @Description Deletes a film with the specified ID.
 // @Tags Films
 // @Param id path integer true "Film ID to delete"
+// @Security ApiKeyAuth
 // @Success 200 {string} string "Film deleted successfully"
 // @Failure 400 {string} string "Invalid film ID param"
 // @Failure 500 {string} string "Internal server error"

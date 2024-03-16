@@ -11,6 +11,7 @@ import (
 // @Description Deletes an actor with the specified ID.
 // @Tags Actors
 // @Param id path integer true "Actor ID to delete"
+// @Security ApiKeyAuth
 // @Success 200 {string} string "Actor deleted successfully"
 // @Failure 400 {string} string "Invalid actor ID param"
 // @Failure 500 {string} string "Internal server error"

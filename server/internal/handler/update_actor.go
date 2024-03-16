@@ -17,6 +17,7 @@ import (
 // @Accept  json
 // @Produce  json
 // @Param actor body entity.UpdateActorInput true "Data of the actor to update"
+// @Security ApiKeyAuth
 // @Success 200 {string} string "Actor updated successfully"
 // @Failure 400 {string} string "Invalid actor ID param or request data"
 // @Failure 500 {string} string "Internal server error"
