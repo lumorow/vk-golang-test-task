@@ -4,10 +4,11 @@ import (
 	"errors"
 )
 
+// UpdateActorInput represents input data for updating an actor entity.
 type UpdateActorInput struct {
-	Name     *string `json:"name" db:"name"`
-	Sex      *string `json:"sex" db:"sex"`
-	Birthday *string `json:"birthday" db:"birthday"`
+	Name     *string `json:"name,omitempty" db:"name" example:"John Doe"`
+	Sex      *string `json:"sex,omitempty" db:"sex" example:"female"`
+	Birthday *string `json:"birthday,omitempty" db:"birthday" example:"1992-12-12"`
 }
 
 func (i UpdateActorInput) Validate() error {

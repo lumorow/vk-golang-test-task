@@ -20,7 +20,7 @@ import (
 // @Success 200 {integer} integer "ID of the created film"
 // @Failure 400 {string} string "Invalid request data"
 // @Failure 500 {string} string "Internal server error"
-// @Router /film [post]
+// @Router /api/film [post]
 func (h *Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
 	userId, err := getUserId(w, r)
 	if err != nil {

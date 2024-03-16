@@ -1,7 +1,8 @@
 package entity
 
+// ActorFilms represents an actor with their associated films.
 type ActorFilms struct {
-	ID       int64  `json:"-" db:"id"`
+	Id       int64  `json:"-" db:"id"`
 	Name     string `json:"name" db:"name"`
 	Sex      string `json:"sex" db:"sex"`
 	Birthday string `json:"birthday" db:"birthday"`

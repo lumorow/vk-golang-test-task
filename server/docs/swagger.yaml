@@ -3,10 +3,13 @@ definitions:
   entity.Actor:
     properties:
       birthday:
+        example: "1990-01-01"
         type: string
       name:
+        example: John Doe
         type: string
       sex:
+        example: male
         type: string
     type: object
   entity.ActorFilms:
@@ -25,32 +28,66 @@ definitions:
   entity.Film:
     properties:
       description:
+        example: A mind-bending thriller
         type: string
       name:
+        example: Inception
         type: string
       rating:
+        example: 8
+        maximum: 10
+        minimum: 0
         type: integer
       releaseDay:
+        example: "2010-07-16"
         type: string
     type: object
   entity.UpdateActorInput:
     properties:
       birthday:
+        example: "1992-12-12"
         type: string
       name:
+        example: John Doe
         type: string
       sex:
+        example: female
         type: string
     type: object
   entity.UpdateFilmInput:
     properties:
       description:
+        example: New description
         type: string
       name:
+        example: Inception
         type: string
       rating:
+        example: 6
+        maximum: 10
+        minimum: 0
         type: integer
       releaseDay:
+        example: "2010-07-16"
+        type: string
+    type: object
+  entity.User:
+    properties:
+      password:
+        example: strongPassword
+        type: string
+      role:
+        example: admin
+        type: string
+      username:
+        example: john_doe
+        type: string
+    type: object
+  handler.signInInput:
+    properties:
+      password:
+        type: string
+      username:
         type: string
     type: object
 host: localhost:8000
@@ -59,13 +96,14 @@ info:
   title: Film library
   version: "1.0"
 paths:
-  /actor:
+  /api/actor:
     post:
       consumes:
       - application/json
       description: Creates a new actor.
       parameters:
-      - description: Data of the new actor
+      - description: 'Data of the new actor (example: {''name'': ''John Doe'', ''sex'':
+          ''male'', ''birthday'': ''1999-10-12''})'
         in: body
         name: actor
         required: true
@@ -91,7 +129,7 @@ paths:
       summary: Create actor
       tags:
       - Actors
-  /actor/{id}:
+  /api/actor/{id}:
     delete:
       description: Deletes an actor with the specified ID.
       parameters:
@@ -155,7 +193,7 @@ paths:
       summary: Update actor by ID
       tags:
       - Actors
-  /actors:
+  /api/actors:
     get:
       consumes:
       - application/json
@@ -194,7 +232,7 @@ paths:
       summary: Get actors with associated films
       tags:
       - Actors
-  /film:
+  /api/film:
     post:
       consumes:
       - application/json
@@ -226,7 +264,7 @@ paths:
       summary: Create film
       tags:
       - Films
-  /film/{id}:
+  /api/film/{id}:
     delete:
       description: Deletes a film with the specified ID.
       parameters:
@@ -290,22 +328,20 @@ paths:
       summary: Update film by ID
       tags:
       - Films
-  /films:
+  /api/films/fragments:
     get:
       consumes:
       - application/json
       description: This endpoint allows searching for films based on actor name and
         film name fragments.
       parameters:
-      - description: Actor name fragment
-        in: query
-        name: actorNameFr
-        required: true
-        type: string
       - description: Film name fragment
         in: query
         name: filmNameFr
-        required: true
+        type: string
+      - description: Actor name fragment
+        in: query
+        name: actorNameFr
         type: string
       produces:
       - application/json
@@ -331,7 +367,7 @@ paths:
       summary: Search for films by actor name and film name fragments
       tags:
       - Films
-  /films/sortType:
+  /api/films/sorted:
     get:
       consumes:
       - application/json
@@ -374,4 +410,75 @@ paths:
       summary: Retrieve films sorted by criteria and associated with actors
       tags:
       - Films
+  /auth/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: Signs in an existing user.
+      parameters:
+      - description: User credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.signInInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: JWT token
+          schema:
+            type: string
+        "400":
+          description: Invalid request data
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Sign in a user
+      tags:
+      - Authentication
+  /auth/sign-up:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new user account.
+      parameters:
+      - description: 'User data example: ''{''username'': ''example_user'', ''password'':
+          ''example_password'', ''role'': ''Enums(admin, user)''}'
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/entity.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ID of the created user
+          schema:
+            type: string
+        "400":
+          description: Invalid request data
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Sign up a new user
+      tags:
+      - Authentication
+securityDefinitions:
+  ApiKeyAuth:
+    description: 'JWT token (example: Bearer <your_jwt_token_here>)'
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

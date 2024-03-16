@@ -15,7 +15,7 @@ import (
 // @Success 200 {string} string "Film deleted successfully"
 // @Failure 400 {string} string "Invalid film ID param"
 // @Failure 500 {string} string "Internal server error"
-// @Router /film/{id} [delete]
+// @Router /api/film/{id} [delete]
 func (h *Handler) DeleteFilmById(w http.ResponseWriter, r *http.Request) {
 	userId, err := getUserId(w, r)
 	if err != nil {

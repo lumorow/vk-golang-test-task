@@ -5,11 +5,12 @@ import (
 	"time"
 )
 
+// Actor represents an actor entity.
 type Actor struct {
-	ID       int64  `json:"-" db:"id"`
-	Name     string `json:"name" db:"name"`
-	Sex      string `json:"sex" db:"sex"`
-	Birthday string `json:"birthday" db:"birthday"`
+	Id       int64  `json:"-" db:"id"`
+	Name     string `json:"name" db:"name" example:"John Doe"`
+	Sex      string `json:"sex" db:"sex" example:"male"`
+	Birthday string `json:"birthday" db:"birthday" example:"1990-01-01"`
 }
 
 func (actor Actor) Validate() error {

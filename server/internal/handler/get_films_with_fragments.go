@@ -10,15 +10,15 @@ import (
 // @Summary Search for films by actor name and film name fragments
 // @Description This endpoint allows searching for films based on actor name and film name fragments.
 // @Tags Films
-// @Param actorNameFr query string true "Actor name fragment"
-// @Param filmNameFr query string true "Film name fragment"
+// @Param filmNameFr query string false "Film name fragment"
+// @Param actorNameFr query string false "Actor name fragment"
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {array} []entity.Film "OK"
 // @Failure 400 {string} string "Invalid request or invalid actor ID"
 // @Failure 500 {string} string "Internal server error"
-// @Router /films [get]
+// @Router /api/films/fragments [get]
 func (h *Handler) GetFilmsWithFragment(w http.ResponseWriter, r *http.Request) {
 	userId, err := getUserId(w, r)
 	if err != nil {

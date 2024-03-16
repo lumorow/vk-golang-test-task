@@ -15,7 +15,7 @@ import (
 // @Success 200 {string} string "Actor deleted successfully"
 // @Failure 400 {string} string "Invalid actor ID param"
 // @Failure 500 {string} string "Internal server error"
-// @Router /actor/{id} [delete]
+// @Router /api/actor/{id} [delete]
 func (h *Handler) DeleteActorById(w http.ResponseWriter, r *http.Request) {
 	userId, err := getUserId(w, r)
 	if err != nil {

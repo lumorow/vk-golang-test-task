@@ -33,3 +33,7 @@ swag_ui:
 build: deps swagger_init
 	@echo "Running docker-compose"
 	docker-compose up
+
+PHONY: build
+start: swagger_init
+	go run server/cmd/main.go

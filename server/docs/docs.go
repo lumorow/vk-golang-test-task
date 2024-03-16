@@ -16,7 +16,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/actor": {
+        "/api/actor": {
             "post": {
                 "security": [
                     {
@@ -36,7 +36,7 @@ const docTemplate = `{
                 "summary": "Create actor",
                 "parameters": [
                     {
-                        "description": "Data of the new actor",
+                        "description": "Data of the new actor (example: {'name': 'John Doe', 'sex': 'male', 'birthday': '1999-10-12'})",
                         "name": "actor",
                         "in": "body",
                         "required": true,
@@ -67,7 +67,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/actor/{id}": {
+        "/api/actor/{id}": {
             "delete": {
                 "security": [
                     {
@@ -166,7 +166,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/actors": {
+        "/api/actors": {
             "get": {
                 "security": [
                     {
@@ -225,7 +225,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/film": {
+        "/api/film": {
             "post": {
                 "security": [
                     {
@@ -276,7 +276,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/film/{id}": {
+        "/api/film/{id}": {
             "delete": {
                 "security": [
                     {
@@ -375,7 +375,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/films": {
+        "/api/films/fragments": {
             "get": {
                 "security": [
                     {
@@ -396,17 +396,15 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Actor name fragment",
-                        "name": "actorNameFr",
-                        "in": "query",
-                        "required": true
+                        "description": "Film name fragment",
+                        "name": "filmNameFr",
+                        "in": "query"
                     },
                     {
                         "type": "string",
-                        "description": "Film name fragment",
-                        "name": "filmNameFr",
-                        "in": "query",
-                        "required": true
+                        "description": "Actor name fragment",
+                        "name": "actorNameFr",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -437,7 +435,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/films/sortType": {
+        "/api/films/sorted": {
             "get": {
                 "security": [
                     {
@@ -501,6 +499,104 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/auth/sign-in": {
+            "post": {
+                "description": "Signs in an existing user.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Sign in a user",
+                "parameters": [
+                    {
+                        "description": "User credentials",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handler.signInInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "JWT token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/sign-up": {
+            "post": {
+                "description": "Creates a new user account.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Sign up a new user",
+                "parameters": [
+                    {
+                        "description": "User data example: '{'username': 'example_user', 'password': 'example_password', 'role': 'Enums(admin, user)'}",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ID of the created user",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request data",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -508,13 +604,16 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "birthday": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "1990-01-01"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "John Doe"
                 },
                 "sex": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "male"
                 }
             }
         },
@@ -542,16 +641,22 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "description": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "A mind-bending thriller"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Inception"
                 },
                 "rating": {
-                    "type": "integer"
+                    "type": "integer",
+                    "maximum": 10,
+                    "minimum": 0,
+                    "example": 8
                 },
                 "releaseDay": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2010-07-16"
                 }
             }
         },
@@ -559,13 +664,16 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "birthday": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "1992-12-12"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "John Doe"
                 },
                 "sex": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "female"
                 }
             }
         },
@@ -573,18 +681,60 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "description": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "New description"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Inception"
                 },
                 "rating": {
-                    "type": "integer"
+                    "type": "integer",
+                    "maximum": 10,
+                    "minimum": 0,
+                    "example": 6
                 },
                 "releaseDay": {
+                    "type": "string",
+                    "example": "2010-07-16"
+                }
+            }
+        },
+        "entity.User": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "example": "strongPassword"
+                },
+                "role": {
+                    "type": "string",
+                    "example": "admin"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "john_doe"
+                }
+            }
+        },
+        "handler.signInInput": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "description": "JWT token (example: Bearer \u003cyour_jwt_token_here\u003e)",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }`

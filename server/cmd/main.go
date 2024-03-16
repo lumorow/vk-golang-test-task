@@ -23,6 +23,13 @@ import (
 // description Film library application management
 // @host localhost:8000
 // @BasePath /
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
+// @Description JWT token (example: Bearer <your_jwt_token_here>)
+// @TokenUrl http://localhost:8000/auth/sign-in
+
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 

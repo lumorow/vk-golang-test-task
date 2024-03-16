@@ -6,12 +6,13 @@ import (
 	"time"
 )
 
+// Film represents a film entity.
 type Film struct {
-	ID          int64  `json:"-" db:"id"`
-	Name        string `json:"name" db:"name"`
-	Description string `json:"description" db:"description"`
-	ReleaseDay  string `json:"releaseDay" db:"releaseDay"`
-	Rating      int8   `json:"rating" db:"rating"`
+	Id          int64  `json:"-" db:"id"`
+	Name        string `json:"name" db:"name" example:"Inception"`
+	Description string `json:"description" db:"description" example:"A mind-bending thriller"`
+	ReleaseDay  string `json:"releaseDay" db:"releaseDay" example:"2010-07-16"`
+	Rating      int8   `json:"rating" db:"rating"  minimum:"0" maximum:"10" example:"8"`
 }
 
 func (film Film) Validate() error {

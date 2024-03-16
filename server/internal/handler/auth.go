@@ -8,6 +8,16 @@ import (
 	"net/http"
 )
 
+// @Summary Sign up a new user
+// @Description Creates a new user account.
+// @Tags Authentication
+// @Accept json
+// @Produce json
+// @Param user body entity.User true "User data example: '{'username': 'example_user', 'password': 'example_password', 'role': 'Enums(admin, user)'}"
+// @Success 200 {string} string "ID of the created user"
+// @Failure 400 {string} string "Invalid request data"
+// @Failure 500 {string} string "Internal server error"
+// @Router /auth/sign-up [post]
 func (h *Handler) signUp(w http.ResponseWriter, r *http.Request) {
 	var input entity.User
 
@@ -32,6 +42,17 @@ type signInInput struct {
 	Password string `json:"password"`
 }
 
+// @Summary Sign in a user
+// @Description Signs in an existing user.
+// @Tags Authentication
+// @Accept json
+// @Produce json
+// @Param input body signInInput true "User credentials"
+// @Success 200 {string} string "JWT token"
+// @Failure 400 {string} string "Invalid request data"
+// @Failure 401 {string} string "Unauthorized"
+// @Failure 500 {string} string "Internal server error"
+// @Router /auth/sign-in [post]
 func (h *Handler) signIn(w http.ResponseWriter, r *http.Request) {
 	var input signInInput
 

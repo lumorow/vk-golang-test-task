@@ -2,11 +2,12 @@ package entity
 
 import "errors"
 
+// UpdateFilmInput represents input data for updating a film entity.
 type UpdateFilmInput struct {
-	Name        *string `json:"name" db:"name"`
-	Description *string `json:"description" db:"description"`
-	ReleaseDay  *string `json:"releaseDay" db:"releaseDay"`
-	Rating      *int8   `json:"rating" db:"rating"`
+	Name        *string `json:"name,omitempty" db:"name" example:"Inception"`
+	Description *string `json:"description,omitempty" db:"description" example:"New description"`
+	ReleaseDay  *string `json:"releaseDay,omitempty" db:"releaseDay" example:"2010-07-16"`
+	Rating      *int8   `json:"rating,omitempty" db:"rating" minimum:"0" maximum:"10" example:"6"`
 }
 
 func (i UpdateFilmInput) Validate() error {

@@ -15,12 +15,12 @@ import (
 // @Tags Actors
 // @Accept  json
 // @Produce  json
-// @Param actor body entity.Actor true "Data of the new actor"
+// @Param actor body entity.Actor true "Data of the new actor (example: {'name': 'John Doe', 'sex': 'male', 'birthday': '1999-10-12'})"
 // @Security ApiKeyAuth
 // @Success 200 {integer} integer "ID of the created actor"
 // @Failure 400 {string} string "Invalid request data"
 // @Failure 500 {string} string "Internal server error"
-// @Router /actor [post]
+// @Router /api/actor [post]
 func (h *Handler) CreateActor(w http.ResponseWriter, r *http.Request) {
 	userId, err := getUserId(w, r)
 	if err != nil {

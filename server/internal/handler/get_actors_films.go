@@ -6,6 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 // GetActorsWithFilms returns actors with their associated films based on the provided actor IDs.
@@ -19,29 +20,29 @@ import (
 // @Success 200 {array} []entity.ActorFilms "OK"
 // @Failure 400 {string} string "Invalid request or invalid actor ID"
 // @Failure 500 {string} string "Internal server error"
-// @Router /actors [get]
+// @Router /api/actors [get]
 func (h *Handler) GetActorsWithFilms(w http.ResponseWriter, r *http.Request) {
 	userId, err := getUserId(w, r)
 	if err != nil {
 		return
 	}
 
-	queryValues := r.URL.Query()["id"]
-
-	if len(queryValues) == 0 {
+	actorsIdStr := r.URL.Query().Get("id")
+	if actorsIdStr == "" {
 		newErrorResponse(w, http.StatusBadRequest, "missing 'id' parameter")
 		return
 	}
 
-	actorsId := make([]int, 0, len(queryValues))
+	actorsIdStrSlice := strings.Split(actorsIdStr, ",")
+	actorsId := make([]int, len(actorsIdStrSlice))
 
-	for _, id := range queryValues {
-		actorId, err := strconv.Atoi(id)
+	for i, idStr := range actorsIdStrSlice {
+		actorId, err := strconv.Atoi(idStr)
 		if err != nil {
-			newErrorResponse(w, http.StatusBadRequest, fmt.Sprintf("invalid actors id param: %v", err.Error()))
+			newErrorResponse(w, http.StatusBadRequest, fmt.Sprintf("invalid actors id param: %v", err))
 			return
 		}
-		actorsId = append(actorsId, actorId)
+		actorsId[i] = actorId
 	}
 
 	res, err := h.services.GetActorsWithFilms(actorsId)
@@ -57,7 +58,7 @@ func (h *Handler) GetActorsWithFilms(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	logrus.Printf("user id: %d get actors: %s with associated films", userId, queryValues)
+	logrus.Printf("user id: %d get actors: %d with associated films", userId, actorsId)
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonBytes)
 }

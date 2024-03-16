@@ -21,7 +21,7 @@ import (
 // @Success 200 {string} string "Actor updated successfully"
 // @Failure 400 {string} string "Invalid actor ID param or request data"
 // @Failure 500 {string} string "Internal server error"
-// @Router /actor/{id} [patch]
+// @Router /api/actor/{id} [patch]
 func (h *Handler) UpdateActorById(w http.ResponseWriter, r *http.Request) {
 	userId, err := getUserId(w, r)
 	if err != nil {
