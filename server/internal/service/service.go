@@ -14,14 +14,14 @@ type Authorization interface {
 type Actor interface {
 	CreateActor(actor entity.Actor) (int, error)
 	DeleteActorById(id int) error
-	UpdateActorById(id int, actor entity.Actor) error
+	UpdateActorById(id int, actor entity.UpdateActorInput) error
 	GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error)
 }
 
 type Film interface {
-	CreateFilm(actor entity.Film) (int, error)
+	CreateFilm(film entity.Film) (int, error)
 	DeleteFilmById(id int) error
-	UpdateFilmById(id int, actor entity.Film) error
+	UpdateFilmById(id int, film entity.UpdateFilmInput) error
 	GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
 	GetFilmsWithSort(sortMode string, filmsId []int) ([]entity.Film, error)
 }

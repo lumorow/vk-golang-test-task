@@ -44,14 +44,14 @@ func (h *Handler) UpdateFilmById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var input entity.Film
+	var input entity.UpdateFilmInput
 
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 		newErrorResponse(w, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	input.Name = slug.Make(input.Name)
+	*input.Name = slug.Make(*input.Name)
 
 	if err := h.services.UpdateFilmById(filmId, input); err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())

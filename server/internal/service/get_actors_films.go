@@ -5,5 +5,9 @@ import (
 )
 
 func (as *ActorService) GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error) {
-	return nil, nil
+	res, err := as.actorRepo.GetActorsWithFilms(actorsId)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
 }

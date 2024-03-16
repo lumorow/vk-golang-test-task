@@ -44,14 +44,14 @@ func (h *Handler) UpdateActorById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var input entity.Actor
+	var input entity.UpdateActorInput
 
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 		newErrorResponse(w, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	input.Name = slug.Make(input.Name)
+	*input.Name = slug.Make(*input.Name)
 
 	if err := h.services.UpdateActorById(actorId, input); err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())

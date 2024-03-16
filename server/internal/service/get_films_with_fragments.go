@@ -5,5 +5,10 @@ import (
 )
 
 func (fs *FilmService) GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
-	return nil, nil
+	res, err := fs.filmRepo.GetFilmsWithFragment(actorNameFrag, filmNameFrag)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }
