@@ -15,7 +15,7 @@ import (
 // @Tags Films
 // @Accept  json
 // @Produce  json
-// @Param film body FilmInput true "Data of the new film"
+// @Param film body entity.Film true "Data of the new film"
 // @Success 200 {integer} integer "ID of the created film"
 // @Failure 400 {string} string "Invalid request data"
 // @Failure 500 {string} string "Internal server error"

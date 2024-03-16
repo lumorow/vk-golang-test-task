@@ -16,7 +16,7 @@ import (
 // @Param id path integer true "Film ID to update"
 // @Accept  json
 // @Produce  json
-// @Param film body FilmInput true "Data of the film to update"
+// @Param film body entity.UpdateFilmInput true "Data of the film to update"
 // @Success 200 {string} string "Film updated successfully"
 // @Failure 400 {string} string "Invalid film ID param or request data"
 // @Failure 500 {string} string "Internal server error"

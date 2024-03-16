@@ -1,0 +1,359 @@
+basePath: /
+definitions:
+  entity.Actor:
+    properties:
+      birthday:
+        type: string
+      name:
+        type: string
+      sex:
+        type: string
+    type: object
+  entity.ActorFilms:
+    properties:
+      birthday:
+        type: string
+      films:
+        items:
+          $ref: '#/definitions/entity.Film'
+        type: array
+      name:
+        type: string
+      sex:
+        type: string
+    type: object
+  entity.Film:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      rating:
+        type: integer
+      releaseDay:
+        type: string
+    type: object
+  entity.UpdateActorInput:
+    properties:
+      birthday:
+        type: string
+      name:
+        type: string
+      sex:
+        type: string
+    type: object
+  entity.UpdateFilmInput:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      rating:
+        type: integer
+      releaseDay:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  title: Film library
+  version: "1.0"
+paths:
+  /actor:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new actor.
+      parameters:
+      - description: Data of the new actor
+        in: body
+        name: actor
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Actor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ID of the created actor
+          schema:
+            type: integer
+        "400":
+          description: Invalid request data
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Create actor
+      tags:
+      - Actors
+  /actor/{id}:
+    delete:
+      description: Deletes an actor with the specified ID.
+      parameters:
+      - description: Actor ID to delete
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Actor deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid actor ID param
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Delete actor by ID
+      tags:
+      - Actors
+    patch:
+      consumes:
+      - application/json
+      description: Updates an actor with the specified ID based on the data passed
+        in the request body.
+      parameters:
+      - description: Actor ID to update
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data of the actor to update
+        in: body
+        name: actor
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UpdateActorInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Actor updated successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid actor ID param or request data
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Update actor by ID
+      tags:
+      - Actors
+  /actors:
+    get:
+      consumes:
+      - application/json
+      description: Returns actors with their associated films based on the provided
+        actor IDs.
+      parameters:
+      - collectionFormat: csv
+        description: Actor IDs
+        in: query
+        items:
+          type: integer
+        name: id
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/entity.ActorFilms'
+              type: array
+            type: array
+        "400":
+          description: Invalid request or invalid actor ID
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Get actors with associated films
+      tags:
+      - Actors
+  /film:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new film.
+      parameters:
+      - description: Data of the new film
+        in: body
+        name: film
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Film'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ID of the created film
+          schema:
+            type: integer
+        "400":
+          description: Invalid request data
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Create film
+      tags:
+      - Films
+  /film/{id}:
+    delete:
+      description: Deletes a film with the specified ID.
+      parameters:
+      - description: Film ID to delete
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Film deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid film ID param
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Delete film by ID
+      tags:
+      - Films
+    patch:
+      consumes:
+      - application/json
+      description: Updates a film with the specified ID based on the data passed in
+        the request body.
+      parameters:
+      - description: Film ID to update
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data of the film to update
+        in: body
+        name: film
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UpdateFilmInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Film updated successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid film ID param or request data
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Update film by ID
+      tags:
+      - Films
+  /films:
+    get:
+      consumes:
+      - application/json
+      description: This endpoint allows searching for films based on actor name and
+        film name fragments.
+      parameters:
+      - description: Actor name fragment
+        in: query
+        name: actorNameFr
+        required: true
+        type: string
+      - description: Film name fragment
+        in: query
+        name: filmNameFr
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/entity.Film'
+              type: array
+            type: array
+        "400":
+          description: Invalid request or invalid actor ID
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Search for films by actor name and film name fragments
+      tags:
+      - Films
+  /films/sortType:
+    get:
+      consumes:
+      - application/json
+      description: This endpoint retrieves films sorted by the specified criteria
+        and associated with the provided actor IDs.
+      parameters:
+      - description: 'Sort type: rating, date, name.'
+        in: query
+        name: sortType
+        type: string
+      - collectionFormat: csv
+        description: Actor IDs
+        in: query
+        items:
+          type: integer
+        name: id
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/entity.Film'
+              type: array
+            type: array
+        "400":
+          description: Invalid request or invalid actor ID
+          schema:
+            type: string
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: Retrieve films sorted by criteria and associated with actors
+      tags:
+      - Films
+swagger: "2.0"

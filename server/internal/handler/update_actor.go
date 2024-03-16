@@ -16,7 +16,7 @@ import (
 // @Param id path integer true "Actor ID to update"
 // @Accept  json
 // @Produce  json
-// @Param actor body ActorInput true "Data of the actor to update"
+// @Param actor body entity.UpdateActorInput true "Data of the actor to update"
 // @Success 200 {string} string "Actor updated successfully"
 // @Failure 400 {string} string "Invalid actor ID param or request data"
 // @Failure 500 {string} string "Internal server error"

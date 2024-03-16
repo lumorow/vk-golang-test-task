@@ -34,7 +34,7 @@ func (h *Handler) userIdentity(next http.Handler) http.Handler {
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), UserIdHeader, userId)
+		ctx := context.WithValue(r.Context(), UserIdHeader, strconv.Itoa(userId))
 		ctx = context.WithValue(ctx, userRoleHeader, userRole)
 
 		next.ServeHTTP(w, r.WithContext(ctx))
@@ -42,7 +42,8 @@ func (h *Handler) userIdentity(next http.Handler) http.Handler {
 }
 
 func getUserId(w http.ResponseWriter, r *http.Request) (int, error) {
-	id := r.Header.Get(UserIdHeader)
+	id := r.Context().Value(UserIdHeader).(string)
+
 	if len(id) == 0 {
 		newErrorResponse(w, http.StatusInternalServerError, "user id not found")
 		return 0, errors.New("user id not found")
@@ -58,7 +59,7 @@ func getUserId(w http.ResponseWriter, r *http.Request) (int, error) {
 }
 
 func checkAdminRule(w http.ResponseWriter, r *http.Request) error {
-	role := r.Header.Get(userRoleHeader)
+	role := r.Context().Value(userRoleHeader).(string)
 
 	if role != "admin" {
 		newErrorResponse(w, http.StatusInternalServerError, "not enough rights")

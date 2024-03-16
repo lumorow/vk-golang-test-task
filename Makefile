@@ -8,7 +8,7 @@ postgresinit:
 .PHONY: dropdb
 dropdb:
 	@echo "Drop postgres database from docker"
-	docker exec -it postgres dropdb film-library
+	docker exec -it film-library dropdb postgres
 
 .PHONY: test
 test:
