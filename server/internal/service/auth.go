@@ -4,7 +4,6 @@ import (
 	"crypto/sha1"
 	"errors"
 	"filmlib/server/internal/entity"
-	"filmlib/server/internal/repository"
 	"fmt"
 	"time"
 
@@ -17,36 +16,24 @@ type tokenClaims struct {
 	UserRole string `json:"user_role"`
 }
 
-type AuthService struct {
-	roles    map[string]struct{}
-	repoAuth repository.Authorization
-}
-
-func NewAuthService(repoAuth repository.Authorization) *AuthService {
-	return &AuthService{
-		roles:    map[string]struct{}{"admin": {}, "user": {}},
-		repoAuth: repoAuth,
-	}
-}
-
 const (
 	salt       = "sdf123123sadfsdf125346"
 	signingKey = "eyJhbG#ciOiJIUz#I1NiJ9"
 	tokenTTL   = 12 * time.Hour
 )
 
-func (s *AuthService) CreateUser(user entity.User) (int, error) {
+func (s *Service) CreateUser(user entity.User) (int, error) {
 	if _, ok := s.roles[user.Role]; !ok {
 		return 0, errors.New("unknown role")
 	}
 
 	user.Password = generatePasswordHash(user.Password)
 
-	return s.repoAuth.CreateUser(user)
+	return s.Repository.CreateUser(user)
 }
 
-func (s *AuthService) GenerateToken(username, password string) (string, error) {
-	user, err := s.repoAuth.GetUser(username, generatePasswordHash(password))
+func (s *Service) GenerateToken(username, password string) (string, error) {
+	user, err := s.Repository.GetUser(username, generatePasswordHash(password))
 	if err != nil {
 		return "", err
 	}
@@ -63,7 +50,7 @@ func (s *AuthService) GenerateToken(username, password string) (string, error) {
 	return token.SignedString([]byte(signingKey))
 }
 
-func (s *AuthService) ParseToken(accessToken string) (int, string, error) {
+func (s *Service) ParseToken(accessToken string) (int, string, error) {
 	token, err := jwt.ParseWithClaims(accessToken, &tokenClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid signing method")

@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-func (fp *FilmPostgres) CreateFilm(film entity.Film) (int, error) {
-	tx, err := fp.db.Begin()
+func (r *Repository) CreateFilm(film entity.Film) (int, error) {
+	tx, err := r.db.Begin()
 	if err != nil {
 		return 0, err
 	}

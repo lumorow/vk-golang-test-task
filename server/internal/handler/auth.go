@@ -14,7 +14,7 @@ import (
 // @Tags Authentication
 // @Accept json
 // @Produce json
-// @Param user body entity.User true "User data example: '{'username': 'example_user', 'password': 'example_password', 'role': 'Enums(admin, user)'}"
+// @Param user body entity.User true "role can be: 'user' or 'admin'"
 // @Success 200 {string} string "ID of the created user"
 // @Failure 400 {string} string "Invalid request data"
 // @Failure 500 {string} string "Internal server error"

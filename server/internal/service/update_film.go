@@ -2,7 +2,7 @@ package service
 
 import "filmlib/server/internal/entity"
 
-func (fs *FilmService) UpdateFilmById(filmId int, film entity.UpdateFilmInput) error {
+func (s *Service) UpdateFilmById(filmId int, film entity.UpdateFilmInput) error {
 	if err := film.Validate(); err != nil {
 		return err
 	}
@@ -12,7 +12,7 @@ func (fs *FilmService) UpdateFilmById(filmId int, film entity.UpdateFilmInput) e
 		newActorsId[newActorId] = struct{}{}
 	}
 
-	actorsId, err := fs.actorRepo.GetActorsIdByFilmId(filmId)
+	actorsId, err := s.Repository.GetActorsIdByFilmId(filmId)
 	if err != nil {
 		return err
 	}
@@ -36,7 +36,7 @@ func (fs *FilmService) UpdateFilmById(filmId int, film entity.UpdateFilmInput) e
 		}
 	}
 
-	err = fs.filmRepo.UpdateFilmById(filmId, deleteIds, addIds, film)
+	err = s.Repository.UpdateFilmById(filmId, deleteIds, addIds, film)
 	if err != nil {
 		return err
 	}

@@ -459,8 +459,7 @@ paths:
       - application/json
       description: Creates a new user account.
       parameters:
-      - description: 'User data example: ''{''username'': ''example_user'', ''password'':
-          ''example_password'', ''role'': ''Enums(admin, user)''}'
+      - description: 'role can be: ''user'' or ''admin'''
         in: body
         name: user
         required: true

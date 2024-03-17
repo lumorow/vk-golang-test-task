@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func (fp *FilmPostgres) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
+func (r *Repository) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
 	var films []entity.Film
 
 	var trimFilmsId string
@@ -27,7 +27,7 @@ func (fp *FilmPostgres) GetFilmsWithSort(sortType string, filmsId []int) ([]enti
 		return nil, errors.New("unknown sort type")
 	}
 
-	err := fp.db.Select(&films, query)
+	err := r.db.Select(&films, query)
 	if err != nil {
 		return nil, err
 	}

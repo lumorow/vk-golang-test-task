@@ -9,6 +9,9 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger/v2"
 )
 
+//go:generate mockgen -destination=mocks/handler.go -package=mock -source=handler.go
+//go:generate touch mocks/.coverignore
+
 var (
 	AuthSignUpRe             = regexp.MustCompile(`^/auth/sign-up/*$`)
 	AuthSignInRe             = regexp.MustCompile(`^/auth/sign-in/*$`)
@@ -40,8 +43,10 @@ type Handler struct {
 	Service
 }
 
-func NewHandler(s Service) *Handler {
-	return &Handler{Service: s}
+func NewHandler(service Service) *Handler {
+	return &Handler{
+		service,
+	}
 }
 
 func (h *Handler) InitRoutes() *http.ServeMux {

@@ -1,7 +1,7 @@
 package service
 
-func (as *ActorService) DeleteActorById(id int) error {
-	err := as.actorRepo.DeleteActorById(id)
+func (s *Service) DeleteActorById(id int) error {
+	err := s.Repository.DeleteActorById(id)
 	if err != nil {
 		return err
 	}

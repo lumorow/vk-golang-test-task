@@ -1,43 +1,24 @@
 package repository
 
 import (
-	"filmlib/server/internal/entity"
-
-	"github.com/jmoiron/sqlx"
+	"database/sql"
 )
 
-type Authorization interface {
-	CreateUser(user entity.User) (int, error)
-	GetUser(username, password string) (entity.User, error)
-}
-
-type Actor interface {
-	CreateActor(actor entity.Actor) (int, error)
-	DeleteActorById(actorId int) error
-	UpdateActorById(actorId int, actor entity.UpdateActorInput) error
-	GetActor(actorId int) (entity.Actor, error)
-	GetActorsIdByFilmId(filmId int) ([]int, error)
-}
-
-type Film interface {
-	CreateFilm(film entity.Film) (int, error)
-	DeleteFilmById(filmId int) error
-	GetFilmsByActorId(actorId int) ([]entity.Film, error)
-	GetFilmsWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
-	GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error)
-	UpdateFilmById(filmId int, deleteIds []int, addIds []int, film entity.UpdateFilmInput) error
+type DBTX interface {
+	QueryRow(query string, args ...any) *sql.Row
+	Get(dest interface{}, query string, args ...interface{}) error
+	Exec(query string, args ...any) (sql.Result, error)
+	Query(query string, args ...any) (*sql.Rows, error)
+	Begin() (*sql.Tx, error)
+	Select(dest interface{}, query string, args ...interface{}) error
 }
 
 type Repository struct {
-	Authorization
-	Actor
-	Film
+	db DBTX
 }
 
-func NewRepository(db *sqlx.DB) *Repository {
+func NewRepository(db DBTX) *Repository {
 	return &Repository{
-		Authorization: NewAuthPostgres(db),
-		Actor:         NewActorPostgres(db),
-		Film:          NewFilmPostgres(db),
+		db,
 	}
 }

@@ -2,41 +2,36 @@ package service
 
 import (
 	"filmlib/server/internal/entity"
-	"filmlib/server/internal/handler"
-	"filmlib/server/internal/repository"
 )
 
-type Authorization interface {
+//go:generate mockgen -destination=mocks/handler.go -package=mock -source=command_handler.go
+//go:generate touch mocks/.coverignore
+
+type Repository interface {
 	CreateUser(user entity.User) (int, error)
-	GenerateToken(username, password string) (string, error)
-	ParseToken(accessToken string) (int, string, error)
-}
-
-type Actor interface {
+	GetUser(username, password string) (entity.User, error)
 	CreateActor(actor entity.Actor) (int, error)
-	DeleteActorById(id int) error
-	UpdateActorById(id int, actor entity.UpdateActorInput) error
-	GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error)
-}
-
-type Film interface {
+	DeleteActorById(actorId int) error
+	UpdateActorById(actorId int, actor entity.UpdateActorInput) error
+	GetActor(actorId int) (entity.Actor, error)
+	GetActorsIdByFilmId(filmId int) ([]int, error)
 	CreateFilm(film entity.Film) (int, error)
-	DeleteFilmById(id int) error
-	UpdateFilmById(id int, film entity.UpdateFilmInput) error
-	GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
+	DeleteFilmById(filmId int) error
+	GetFilmsByActorId(actorId int) ([]entity.Film, error)
+	GetFilmsWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
 	GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error)
+	UpdateFilmById(filmId int, deleteIds []int, addIds []int, film entity.UpdateFilmInput) error
 }
 
 type Service struct {
-	Authorization
-	Actor
-	Film
+	Repository
+	roles map[string]struct{}
 }
 
-func NewService(repo *repository.Repository) handler.Service {
+func NewService(repository Repository) *Service {
+	roles := map[string]struct{}{"admin": {}, "user": {}}
 	return &Service{
-		NewAuthService(repo.Authorization),
-		NewActorService(repo.Actor, repo.Film),
-		NewFilmService(repo.Actor, repo.Film),
+		repository,
+		roles,
 	}
 }

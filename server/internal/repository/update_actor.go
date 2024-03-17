@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func (ap *ActorPostgres) UpdateActorById(actorId int, actor entity.UpdateActorInput) error {
+func (r *Repository) UpdateActorById(actorId int, actor entity.UpdateActorInput) error {
 	setValues := make([]string, 0)
 	args := make([]interface{}, 0)
 	argId := 1
@@ -35,7 +35,7 @@ func (ap *ActorPostgres) UpdateActorById(actorId int, actor entity.UpdateActorIn
 
 	args = append(args, actorId)
 
-	_, err := ap.db.Exec(query, args...)
+	_, err := r.db.Exec(query, args...)
 	if err != nil {
 		return err
 	}

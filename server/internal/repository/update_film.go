@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-func (fp *FilmPostgres) UpdateFilmById(filmId int, deleteIds []int, addIds []int, film entity.UpdateFilmInput) error {
-	tx, err := fp.db.Begin()
+func (r *Repository) UpdateFilmById(filmId int, deleteIds []int, addIds []int, film entity.UpdateFilmInput) error {
+	tx, err := r.db.Begin()
 	if err != nil {
 		return err
 	}
@@ -16,8 +16,7 @@ func (fp *FilmPostgres) UpdateFilmById(filmId int, deleteIds []int, addIds []int
 		queryDeleteIds := fmt.Sprintf("DELETE FROM %s WHERE actor_id = $1 AND film_id = $2", actorsFilmsTable)
 		_, err = tx.Exec(queryDeleteIds, deleteId, filmId)
 		if err != nil {
-			tx.Rollback()
-			return err
+			return tx.Rollback()
 		}
 	}
 
@@ -25,8 +24,7 @@ func (fp *FilmPostgres) UpdateFilmById(filmId int, deleteIds []int, addIds []int
 		createActorsFilmsIdsQuery := fmt.Sprintf("INSERT INTO %s (actor_id, film_id) values ($1, $2)", actorsFilmsTable)
 		_, err = tx.Exec(createActorsFilmsIdsQuery, addId, filmId)
 		if err != nil {
-			tx.Rollback()
-			return err
+			return tx.Rollback()
 		}
 	}
 
@@ -66,8 +64,7 @@ func (fp *FilmPostgres) UpdateFilmById(filmId int, deleteIds []int, addIds []int
 
 	_, err = tx.Exec(query, args...)
 	if err != nil {
-		tx.Rollback()
-		return err
+		return tx.Rollback()
 	}
 	return tx.Commit()
 }

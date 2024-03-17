@@ -5,12 +5,12 @@ import (
 	"fmt"
 )
 
-func (ap *ActorPostgres) GetActor(actorId int) (entity.Actor, error) {
+func (r *Repository) GetActor(actorId int) (entity.Actor, error) {
 	var actor entity.Actor
 
 	query := fmt.Sprintf("SELECT name, sex, birthday FROM %s WHERE id = $1", actorsTable)
 
-	if err := ap.db.Get(&actor, query, actorId); err != nil {
+	if err := r.db.Get(&actor, query, actorId); err != nil {
 		return actor, err
 	}
 

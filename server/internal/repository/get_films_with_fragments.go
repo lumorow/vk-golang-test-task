@@ -5,25 +5,25 @@ import (
 	"fmt"
 )
 
-func (fp *FilmPostgres) GetFilmsWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
+func (r *Repository) GetFilmsWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
 	var films []entity.Film
 
 	if actorNameFrag == "" {
 		query := getFilmFragmentQuery()
 
-		if err := fp.db.Select(&films, query, filmNameFrag); err != nil {
+		if err := r.db.Select(&films, query, filmNameFrag); err != nil {
 			return nil, err
 		}
 	} else if filmNameFrag == "" {
 		query := getActorFragmentQuery()
 
-		if err := fp.db.Select(&films, query, actorNameFrag); err != nil {
+		if err := r.db.Select(&films, query, actorNameFrag); err != nil {
 			return nil, err
 		}
 	} else {
 		query := getActorFragmentFilmFragmentQuery()
 
-		if err := fp.db.Select(&films, query, filmNameFrag, actorNameFrag); err != nil {
+		if err := r.db.Select(&films, query, filmNameFrag, actorNameFrag); err != nil {
 			return nil, err
 		}
 	}

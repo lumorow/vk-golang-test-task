@@ -567,7 +567,7 @@ const docTemplate = `{
                 "summary": "Sign up a new user",
                 "parameters": [
                     {
-                        "description": "User data example: '{'username': 'example_user', 'password': 'example_password', 'role': 'Enums(admin, user)'}",
+                        "description": "role can be: 'user' or 'admin'",
                         "name": "user",
                         "in": "body",
                         "required": true,

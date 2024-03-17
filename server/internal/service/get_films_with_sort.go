@@ -5,18 +5,18 @@ import (
 	"filmlib/server/internal/entity"
 )
 
-func (fs *FilmService) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
+func (s *Service) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
 	if sortType == "" {
 		sortType = "rating"
 	}
 
-	sortsEsxists := map[string]struct{}{"name": {}, "rating": {}, "release": {}}
+	sortsExists := map[string]struct{}{"name": {}, "rating": {}, "release": {}}
 
-	if _, ok := sortsEsxists[sortType]; !ok {
+	if _, ok := sortsExists[sortType]; !ok {
 		return nil, errors.New("unknown sort type")
 	}
 
-	res, err := fs.filmRepo.GetFilmsWithSort(sortType, filmsId)
+	res, err := s.Repository.GetFilmsWithSort(sortType, filmsId)
 	if err != nil {
 		return nil, err
 	}

@@ -4,13 +4,13 @@ import (
 	"filmlib/server/internal/entity"
 )
 
-func (as *ActorService) GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error) {
+func (s *Service) GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error) {
 	actorsFilms := make([]entity.ActorFilms, 0, len(actorsId))
 	for i := 0; i < len(actorsId); i++ {
 		var actorFilms entity.ActorFilms
 		actorFilms.Films = make([]entity.Film, 0)
 
-		actor, err := as.actorRepo.GetActor(actorsId[i])
+		actor, err := s.Repository.GetActor(actorsId[i])
 		if err != nil {
 			return nil, err
 		}
@@ -19,7 +19,7 @@ func (as *ActorService) GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms,
 		actorFilms.Sex = actor.Sex
 		actorFilms.Birthday = actor.Birthday
 
-		films, err := as.filmRepo.GetFilmsByActorId(actorsId[i])
+		films, err := s.Repository.GetFilmsByActorId(actorsId[i])
 		if err != nil {
 			return nil, err
 		}
