@@ -1,4 +1,4 @@
-package filmlib
+package server
 
 import (
 	"context"
@@ -14,7 +14,6 @@ type Server struct {
 
 func (s *Server) Run(handler http.Handler) error {
 	s.httpServer = &http.Server{
-
 		Addr:           fmt.Sprintf("%s:%s", os.Getenv("SERVER_HOST"), os.Getenv("SERVER_PORT")),
 		Handler:        handler,
 		MaxHeaderBytes: 1 << 20,

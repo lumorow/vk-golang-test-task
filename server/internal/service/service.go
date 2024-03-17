@@ -23,7 +23,7 @@ type Film interface {
 	DeleteFilmById(id int) error
 	UpdateFilmById(id int, film entity.UpdateFilmInput) error
 	GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
-	GetFilmsWithSort(sortMode string, filmsId []int) ([]entity.Film, error)
+	GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error)
 }
 
 type Service struct {

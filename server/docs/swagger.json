@@ -434,7 +434,7 @@
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "This endpoint retrieves films sorted by the specified criteria and associated with the provided actor IDs.",
+                "description": "This endpoint retrieves films sorted by the specified criteria and associated with the provided film IDs.",
                 "consumes": [
                     "application/json"
                 ],
@@ -444,11 +444,11 @@
                 "tags": [
                     "Films"
                 ],
-                "summary": "Retrieve films sorted by criteria and associated with actors",
+                "summary": "Retrieve films sorted by criteria",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Sort type: rating, date, name.",
+                        "description": "Sort type: name, rating, release",
                         "name": "sortType",
                         "in": "query"
                     },
@@ -458,7 +458,7 @@
                             "type": "integer"
                         },
                         "collectionFormat": "csv",
-                        "description": "Actor IDs",
+                        "description": "Films IDs",
                         "name": "id",
                         "in": "query",
                         "required": true
@@ -478,7 +478,7 @@
                         }
                     },
                     "400": {
-                        "description": "Invalid request or invalid actor ID",
+                        "description": "Invalid request or invalid film ID",
                         "schema": {
                             "type": "string"
                         }
@@ -652,7 +652,7 @@
                     "minimum": 0,
                     "example": 8
                 },
-                "releaseDay": {
+                "release": {
                     "type": "string",
                     "example": "2010-07-16"
                 }
@@ -698,7 +698,7 @@
                     "minimum": 0,
                     "example": 6
                 },
-                "releaseDay": {
+                "release": {
                     "type": "string",
                     "example": "2010-07-16"
                 }
@@ -709,7 +709,7 @@
             "properties": {
                 "password": {
                     "type": "string",
-                    "example": "strongPassword"
+                    "example": "password"
                 },
                 "role": {
                     "type": "string",
@@ -717,7 +717,7 @@
                 },
                 "username": {
                     "type": "string",
-                    "example": "john_doe"
+                    "example": "username"
                 }
             }
         },
@@ -725,10 +725,12 @@
             "type": "object",
             "properties": {
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "password"
                 },
                 "username": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "username"
                 }
             }
         }

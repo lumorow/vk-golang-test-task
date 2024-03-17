@@ -24,9 +24,7 @@ func (as *ActorService) GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms,
 			return nil, err
 		}
 
-		for _, film := range films {
-			actorFilms.Films = append(actorFilms.Films, film)
-		}
+		actorFilms.Films = append(actorFilms.Films, films...)
 
 		actorsFilms = append(actorsFilms, actorFilms)
 	}

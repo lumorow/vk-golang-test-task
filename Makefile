@@ -10,11 +10,6 @@ dropdb:
 	@echo "Drop postgres database from docker"
 	docker exec -it film-library dropdb postgres
 
-.PHONY: test
-test:
-	@echo "Start tests"
-	go clean -testcache &&  go test ./server/internal/service/ ./server/internal/handler/
-
 .PHONY: deps
 deps:
 	go mod tidy
@@ -29,11 +24,23 @@ swag_ui:
 	@echo "Open swagger index.html"
 	open http://localhost:8000/api/swagger
 
-.PHONY: build
-build: deps swagger_init
-	@echo "Running docker-compose"
-	docker-compose up
+
+PHONY: lint
+lint:
+	golangci-lint run --config=.golangci.yml ./...
+
+PHONY: cover
+cover:
+	go test ./... -coverprofile /tmp/cover.out && go tool cover -html=/tmp/cover.out
+
+.PHONY: test
+test: lint cover
 
 PHONY: build
 start: swagger_init
 	go run server/cmd/main.go
+
+.PHONY: build
+build: deps swagger_init
+	@echo "Running docker-compose"
+	docker-compose up

@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"filmlib/server/internal/entity"
 	"fmt"
+	"net/http"
+
 	"github.com/gosimple/slug"
 	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 // CreateActor creates a new actor in the system.

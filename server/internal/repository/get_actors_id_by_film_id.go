@@ -10,6 +10,7 @@ func (ap *ActorPostgres) GetActorsIdByFilmId(filmId int) ([]int, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer rows.Close()
 
 	actorsId := make([]int, 0)
 

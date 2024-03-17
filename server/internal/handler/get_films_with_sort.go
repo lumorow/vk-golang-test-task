@@ -3,23 +3,24 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
-// GetFilmsWithSort handles the request to retrieve films sorted by the specified criteria and associated with the provided actor IDs.
-// @Summary Retrieve films sorted by criteria and associated with actors
-// @Description This endpoint retrieves films sorted by the specified criteria and associated with the provided actor IDs.
+// GetFilmsWithSort handles the request to retrieve films sorted by the specified criteria and associated with the provided film IDs.
+// @Summary Retrieve films sorted by criteria
+// @Description This endpoint retrieves films sorted by the specified criteria and associated with the provided film IDs.
 // @Tags Films
-// @Param sortType query string false "Sort type: rating, date, name."
-// @Param id query []int true "Actor IDs"
+// @Param sortType query string false "Sort type: name, rating, release"
+// @Param id query []int true "Films IDs"
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Success 200 {array} []entity.Film "OK"
-// @Failure 400 {string} string "Invalid request or invalid actor ID"
+// @Failure 400 {string} string "Invalid request or invalid film ID"
 // @Failure 500 {string} string "Internal server error"
 // @Router /api/films/sorted [get]
 func (h *Handler) GetFilmsWithSort(w http.ResponseWriter, r *http.Request) {
@@ -43,14 +44,13 @@ func (h *Handler) GetFilmsWithSort(w http.ResponseWriter, r *http.Request) {
 	for _, id := range filmsIdStrSlice {
 		actorId, err := strconv.Atoi(id)
 		if err != nil {
-			newErrorResponse(w, http.StatusBadRequest, fmt.Sprintf("invalid actors id param: %v", err.Error()))
+			newErrorResponse(w, http.StatusBadRequest, fmt.Sprintf("invalid films id param: %v", err.Error()))
 			return
 		}
 		filmsIds = append(filmsIds, actorId)
 	}
 
 	res, err := h.services.GetFilmsWithSort(sortType, filmsIds)
-
 	if err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return

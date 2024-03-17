@@ -442,7 +442,7 @@ const docTemplate = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "This endpoint retrieves films sorted by the specified criteria and associated with the provided actor IDs.",
+                "description": "This endpoint retrieves films sorted by the specified criteria and associated with the provided film IDs.",
                 "consumes": [
                     "application/json"
                 ],
@@ -452,11 +452,11 @@ const docTemplate = `{
                 "tags": [
                     "Films"
                 ],
-                "summary": "Retrieve films sorted by criteria and associated with actors",
+                "summary": "Retrieve films sorted by criteria",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Sort type: rating, date, name.",
+                        "description": "Sort type: name, rating, release",
                         "name": "sortType",
                         "in": "query"
                     },
@@ -466,7 +466,7 @@ const docTemplate = `{
                             "type": "integer"
                         },
                         "collectionFormat": "csv",
-                        "description": "Actor IDs",
+                        "description": "Films IDs",
                         "name": "id",
                         "in": "query",
                         "required": true
@@ -486,7 +486,7 @@ const docTemplate = `{
                         }
                     },
                     "400": {
-                        "description": "Invalid request or invalid actor ID",
+                        "description": "Invalid request or invalid film ID",
                         "schema": {
                             "type": "string"
                         }
@@ -660,7 +660,7 @@ const docTemplate = `{
                     "minimum": 0,
                     "example": 8
                 },
-                "releaseDay": {
+                "release": {
                     "type": "string",
                     "example": "2010-07-16"
                 }
@@ -706,7 +706,7 @@ const docTemplate = `{
                     "minimum": 0,
                     "example": 6
                 },
-                "releaseDay": {
+                "release": {
                     "type": "string",
                     "example": "2010-07-16"
                 }
@@ -717,7 +717,7 @@ const docTemplate = `{
             "properties": {
                 "password": {
                     "type": "string",
-                    "example": "strongPassword"
+                    "example": "password"
                 },
                 "role": {
                     "type": "string",
@@ -725,7 +725,7 @@ const docTemplate = `{
                 },
                 "username": {
                     "type": "string",
-                    "example": "john_doe"
+                    "example": "username"
                 }
             }
         },
@@ -733,10 +733,12 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "password"
                 },
                 "username": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "username"
                 }
             }
         }

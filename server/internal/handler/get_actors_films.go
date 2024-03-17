@@ -3,10 +3,11 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 // GetActorsWithFilms returns actors with their associated films based on the provided actor IDs.
@@ -46,7 +47,6 @@ func (h *Handler) GetActorsWithFilms(w http.ResponseWriter, r *http.Request) {
 	}
 
 	res, err := h.services.GetActorsWithFilms(actorsId)
-
 	if err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return

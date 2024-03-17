@@ -6,8 +6,9 @@ import (
 	"filmlib/server/internal/entity"
 	"filmlib/server/internal/repository"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 type tokenClaims struct {
@@ -35,7 +36,7 @@ const (
 )
 
 func (s *AuthService) CreateUser(user entity.User) (int, error) {
-	if _, ok := s.roles[user.Role]; ok != true {
+	if _, ok := s.roles[user.Role]; !ok {
 		return 0, errors.New("unknown role")
 	}
 

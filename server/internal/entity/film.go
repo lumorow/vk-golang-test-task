@@ -11,7 +11,7 @@ type Film struct {
 	Id          int    `json:"-" db:"id"`
 	Name        string `json:"name" db:"name" example:"Inception"`
 	Description string `json:"description" db:"description" example:"A mind-bending thriller"`
-	ReleaseDay  string `json:"releaseDay" db:"releaseDay" example:"2010-07-16"`
+	ReleaseDay  string `json:"release" db:"release" example:"2010-07-16"`
 	Rating      int8   `json:"rating" db:"rating"  minimum:"0" maximum:"10" example:"8"`
 	ActorsId    []int  `json:"actorsId"`
 }

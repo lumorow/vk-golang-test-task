@@ -3,10 +3,11 @@ package handler
 import (
 	"encoding/json"
 	"filmlib/server/internal/entity"
-	"github.com/gosimple/slug"
-	"github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
+
+	"github.com/gosimple/slug"
+	"github.com/sirupsen/logrus"
 )
 
 // UpdateActorById updates an actor by its ID in the system.

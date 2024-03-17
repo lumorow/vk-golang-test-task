@@ -3,19 +3,20 @@ package main
 import (
 	"context"
 	"errors"
-	"filmlib/server"
 	"filmlib/server/internal/handler"
 	"filmlib/server/internal/repository"
 	"filmlib/server/internal/service"
+	"filmlib/server/pkg/server"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/github"
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 // @title Film library
@@ -63,7 +64,7 @@ func main() {
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
 
-	srv := new(filmlib.Server)
+	srv := new(server.Server)
 
 	go func() {
 		if err := srv.Run(handlers.InitRoutes()); err != nil {

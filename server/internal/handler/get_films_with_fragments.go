@@ -2,8 +2,9 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/sirupsen/logrus"
 	"net/http"
+
+	"github.com/sirupsen/logrus"
 )
 
 // GetFilmsWithFragment handles the request to search for films based on actor name and film name fragments.
@@ -29,7 +30,6 @@ func (h *Handler) GetFilmsWithFragment(w http.ResponseWriter, r *http.Request) {
 	filmNameFrag := r.URL.Query().Get("filmNameFr")
 
 	res, err := h.services.GetFilmWithFragment(actorNameFrag, filmNameFrag)
-
 	if err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return

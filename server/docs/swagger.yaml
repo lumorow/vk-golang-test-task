@@ -42,7 +42,7 @@ definitions:
         maximum: 10
         minimum: 0
         type: integer
-      releaseDay:
+      release:
         example: "2010-07-16"
         type: string
     type: object
@@ -75,27 +75,29 @@ definitions:
         maximum: 10
         minimum: 0
         type: integer
-      releaseDay:
+      release:
         example: "2010-07-16"
         type: string
     type: object
   entity.User:
     properties:
       password:
-        example: strongPassword
+        example: password
         type: string
       role:
         example: admin
         type: string
       username:
-        example: john_doe
+        example: username
         type: string
     type: object
   handler.signInInput:
     properties:
       password:
+        example: password
         type: string
       username:
+        example: username
         type: string
     type: object
 host: localhost:8000
@@ -379,14 +381,14 @@ paths:
       consumes:
       - application/json
       description: This endpoint retrieves films sorted by the specified criteria
-        and associated with the provided actor IDs.
+        and associated with the provided film IDs.
       parameters:
-      - description: 'Sort type: rating, date, name.'
+      - description: 'Sort type: name, rating, release'
         in: query
         name: sortType
         type: string
       - collectionFormat: csv
-        description: Actor IDs
+        description: Films IDs
         in: query
         items:
           type: integer
@@ -405,7 +407,7 @@ paths:
               type: array
             type: array
         "400":
-          description: Invalid request or invalid actor ID
+          description: Invalid request or invalid film ID
           schema:
             type: string
         "500":
@@ -414,7 +416,7 @@ paths:
             type: string
       security:
       - ApiKeyAuth: []
-      summary: Retrieve films sorted by criteria and associated with actors
+      summary: Retrieve films sorted by criteria
       tags:
       - Films
   /auth/sign-in:

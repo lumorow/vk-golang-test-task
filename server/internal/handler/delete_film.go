@@ -1,9 +1,10 @@
 package handler
 
 import (
-	"github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
+
+	"github.com/sirupsen/logrus"
 )
 
 // DeleteFilmById deletes a film by its ID from the system.

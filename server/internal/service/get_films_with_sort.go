@@ -1,9 +1,22 @@
 package service
 
-import "filmlib/server/internal/entity"
+import (
+	"errors"
+	"filmlib/server/internal/entity"
+)
 
-func (fs *FilmService) GetFilmsWithSort(sortMode string, filmsId []int) ([]entity.Film, error) {
-	res, err := fs.filmRepo.GetFilmsWithSort(sortMode, filmsId)
+func (fs *FilmService) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
+	if sortType == "" {
+		sortType = "rate"
+	}
+
+	sortsEsxists := map[string]struct{}{"name": {}, "rating": {}, "release": {}}
+
+	if _, ok := sortsEsxists[sortType]; !ok {
+		return nil, errors.New("unknown sort type")
+	}
+
+	res, err := fs.filmRepo.GetFilmsWithSort(sortType, filmsId)
 	if err != nil {
 		return nil, err
 	}

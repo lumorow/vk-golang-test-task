@@ -1,0 +1,26 @@
+# More info on config here: https://github.com/golangci/golangci-lint#config-file
+linters:
+  disable-all: true
+  enable:
+    - revive
+    - govet
+    - ineffassign
+    - typecheck
+    - gofumpt
+    - goimports
+    - gosimple
+    - unused
+    - staticcheck
+    - gochecknoinits
+    - makezero
+    - whitespace
+
+linters-settings:
+  revive:
+    rules:
+      - name: var-naming # usually this is not critical
+        disabled: true
+
+run:
+  build-tags:
+    - integration

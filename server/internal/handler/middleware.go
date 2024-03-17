@@ -8,10 +8,15 @@ import (
 	"strings"
 )
 
+type key int
+
+const (
+	userRoleHeader key = iota
+	UserIdHeader
+)
+
 const (
 	authorizationHeader = "Authorization"
-	userRoleHeader      = "userRole"
-	UserIdHeader        = "userId"
 )
 
 func (h *Handler) userIdentity(next http.Handler) http.Handler {

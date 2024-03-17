@@ -2,6 +2,7 @@ package repository
 
 import (
 	"filmlib/server/internal/entity"
+
 	"github.com/jmoiron/sqlx"
 )
 
@@ -23,7 +24,7 @@ type Film interface {
 	DeleteFilmById(filmId int) error
 	GetFilmsByActorId(actorId int) ([]entity.Film, error)
 	GetFilmsWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
-	GetFilmsWithSort(sortMode string, filmsId []int) ([]entity.Film, error)
+	GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error)
 	UpdateFilmById(filmId int, deleteIds []int, addIds []int, film entity.UpdateFilmInput) error
 }
 

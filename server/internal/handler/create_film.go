@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"filmlib/server/internal/entity"
 	"fmt"
+	"net/http"
+
 	"github.com/gosimple/slug"
 	"github.com/sirupsen/logrus"
-	"net/http"
 )
 
 // CreateFilm creates a new film in the system.

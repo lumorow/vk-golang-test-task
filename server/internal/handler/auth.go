@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"filmlib/server/internal/entity"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"net/http"
+
+	"github.com/sirupsen/logrus"
 )
 
 // @Summary Sign up a new user
@@ -38,8 +39,8 @@ func (h *Handler) signUp(w http.ResponseWriter, r *http.Request) {
 }
 
 type signInInput struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string `json:"username" example:"username"`
+	Password string `json:"password" example:"password"`
 }
 
 // @Summary Sign in a user

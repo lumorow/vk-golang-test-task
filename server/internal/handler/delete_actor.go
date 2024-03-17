@@ -1,9 +1,10 @@
 package handler
 
 import (
-	"github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
+
+	"github.com/sirupsen/logrus"
 )
 
 // DeleteActorById deletes an actor by its ID from the system.

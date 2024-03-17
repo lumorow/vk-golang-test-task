@@ -1,8 +1,9 @@
 package handler
 
 import (
-	"github.com/sirupsen/logrus"
 	"net/http"
+
+	"github.com/sirupsen/logrus"
 )
 
 func newErrorResponse(w http.ResponseWriter, statusCode int, message string) {
