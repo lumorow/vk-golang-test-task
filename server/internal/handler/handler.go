@@ -18,7 +18,7 @@ var (
 	ActorsReWithID           = regexp.MustCompile(`^/api/actors\?id=[0-9]+(,[0-9]+)*$`)
 	FilmRe                   = regexp.MustCompile(`^/api/film/*$`)
 	FilmReWithID             = regexp.MustCompile(`^/api/film/([0-9]+)$`)
-	FilmsReWithIDAndFragment = regexp.MustCompile(`^/api/films/fragments\?filmNameFr=[a-zA-Z0-9]+&actorNameFr=[a-zA-Z0-9]+$`)
+	FilmsReWithIDAndFragment = regexp.MustCompile(`^/api/films/fragments(\?filmNameFr=[a-zA-Z0-9]+&)?(actorNameFr=[a-zA-Z0-9]+$)?`)
 	FilmsReWithIDAndWithSort = regexp.MustCompile(`^/api/films/sorted\?(sortType=[a-zA-Z0-9]+&)?(id=[0-9]+(,[0-9]+)*)$`)
 	SwaggerRe                = regexp.MustCompile(`^/api/swagger/*$`)
 )
