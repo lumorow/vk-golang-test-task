@@ -13,8 +13,8 @@ func (fp *FilmPostgres) UpdateFilmById(filmId int, deleteIds []int, addIds []int
 	}
 
 	for _, deleteId := range deleteIds {
-		queryDeleteIds := fmt.Sprintf("DELETE FROM %s WHERE actor_id = $1", actorsFilmsTable)
-		_, err = tx.Exec(queryDeleteIds, deleteId)
+		queryDeleteIds := fmt.Sprintf("DELETE FROM %s WHERE actor_id = $1 AND film_id = $2", actorsFilmsTable)
+		_, err = tx.Exec(queryDeleteIds, deleteId, filmId)
 		if err != nil {
 			tx.Rollback()
 			return err

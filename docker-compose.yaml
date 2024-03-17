@@ -9,7 +9,7 @@ services:
       DB_PASSWORD: password
       DB_NAME: film-library
       DB_SSLMODE: disable
-    container_name: command-launcher
+    container_name: film-library
     build: ./
     ports:
       - '8000:8000'

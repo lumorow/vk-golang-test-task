@@ -7,7 +7,7 @@ import (
 
 func (fs *FilmService) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
 	if sortType == "" {
-		sortType = "rate"
+		sortType = "rating"
 	}
 
 	sortsEsxists := map[string]struct{}{"name": {}, "rating": {}, "release": {}}

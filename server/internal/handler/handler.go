@@ -3,7 +3,6 @@ package handler
 import (
 	_ "filmlib/server/docs"
 	"filmlib/server/internal/service"
-	"github.com/sirupsen/logrus"
 	"net/http"
 	"regexp"
 
@@ -20,7 +19,6 @@ var (
 	FilmReWithID             = regexp.MustCompile(`^/api/film/([0-9]+)$`)
 	FilmsReWithIDAndFragment = regexp.MustCompile(`^/api/films/fragments(\?filmNameFr=[a-zA-Z0-9]+&)?(actorNameFr=[a-zA-Z0-9]+$)?`)
 	FilmsReWithIDAndWithSort = regexp.MustCompile(`^/api/films/sorted\?(sortType=[a-zA-Z0-9]+&)?(id=[0-9]+(,[0-9]+)*)$`)
-	SwaggerRe                = regexp.MustCompile(`^/api/swagger/*$`)
 )
 
 type Handler struct {
@@ -114,7 +112,6 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// Another Path
 	default:
-		logrus.Print(r.URL.RequestURI())
 		newErrorResponse(w, http.StatusNotFound, "404 Not Found")
 		return
 	}
