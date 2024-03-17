@@ -27,6 +27,10 @@ definitions:
     type: object
   entity.Film:
     properties:
+      actorsId:
+        items:
+          type: integer
+        type: array
       description:
         example: A mind-bending thriller
         type: string
@@ -56,6 +60,10 @@ definitions:
     type: object
   entity.UpdateFilmInput:
     properties:
+      actorsId:
+        items:
+          type: integer
+        type: array
       description:
         example: New description
         type: string
@@ -102,8 +110,7 @@ paths:
       - application/json
       description: Creates a new actor.
       parameters:
-      - description: 'Data of the new actor (example: {''name'': ''John Doe'', ''sex'':
-          ''male'', ''birthday'': ''1999-10-12''})'
+      - description: Data of the new actor
         in: body
         name: actor
         required: true

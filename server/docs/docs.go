@@ -36,7 +36,7 @@ const docTemplate = `{
                 "summary": "Create actor",
                 "parameters": [
                     {
-                        "description": "Data of the new actor (example: {'name': 'John Doe', 'sex': 'male', 'birthday': '1999-10-12'})",
+                        "description": "Data of the new actor",
                         "name": "actor",
                         "in": "body",
                         "required": true,
@@ -640,6 +640,12 @@ const docTemplate = `{
         "entity.Film": {
             "type": "object",
             "properties": {
+                "actorsId": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
                 "description": {
                     "type": "string",
                     "example": "A mind-bending thriller"
@@ -680,6 +686,12 @@ const docTemplate = `{
         "entity.UpdateFilmInput": {
             "type": "object",
             "properties": {
+                "actorsId": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
                 "description": {
                     "type": "string",
                     "example": "New description"

@@ -8,10 +8,11 @@ type UpdateFilmInput struct {
 	Description *string `json:"description,omitempty" db:"description" example:"New description"`
 	ReleaseDay  *string `json:"releaseDay,omitempty" db:"releaseDay" example:"2010-07-16"`
 	Rating      *int8   `json:"rating,omitempty" db:"rating" minimum:"0" maximum:"10" example:"6"`
+	ActorsId    *[]int  `json:"actorsId"`
 }
 
 func (i UpdateFilmInput) Validate() error {
-	if i.Name == nil && i.Description == nil && i.ReleaseDay == nil && i.Rating == nil {
+	if i.Name == nil && i.Description == nil && i.ReleaseDay == nil && i.Rating == nil && i.ActorsId == nil {
 		return errors.New("update film has no values")
 	}
 	if i.Name != nil {

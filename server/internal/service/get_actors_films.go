@@ -5,9 +5,31 @@ import (
 )
 
 func (as *ActorService) GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error) {
-	res, err := as.actorRepo.GetActorsWithFilms(actorsId)
-	if err != nil {
-		return nil, err
+	actorsFilms := make([]entity.ActorFilms, 0, len(actorsId))
+	for i := 0; i < len(actorsId); i++ {
+		var actorFilms entity.ActorFilms
+		actorFilms.Films = make([]entity.Film, 0)
+
+		actor, err := as.actorRepo.GetActor(actorsId[i])
+		if err != nil {
+			return nil, err
+		}
+
+		actorFilms.Name = actor.Name
+		actorFilms.Sex = actor.Sex
+		actorFilms.Birthday = actor.Birthday
+
+		films, err := as.filmRepo.GetFilmsByActorId(actorsId[i])
+		if err != nil {
+			return nil, err
+		}
+
+		for _, film := range films {
+			actorFilms.Films = append(actorFilms.Films, film)
+		}
+
+		actorsFilms = append(actorsFilms, actorFilms)
 	}
-	return res, nil
+
+	return actorsFilms, nil
 }

@@ -15,7 +15,7 @@ import (
 // @Tags Actors
 // @Accept  json
 // @Produce  json
-// @Param actor body entity.Actor true "Data of the new actor (example: {'name': 'John Doe', 'sex': 'male', 'birthday': '1999-10-12'})"
+// @Param actor body entity.Actor true "Data of the new actor"
 // @Security ApiKeyAuth
 // @Success 200 {integer} integer "ID of the created actor"
 // @Failure 400 {string} string "Invalid request data"

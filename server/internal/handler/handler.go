@@ -3,7 +3,6 @@ package handler
 import (
 	_ "filmlib/server/docs"
 	"filmlib/server/internal/service"
-	"github.com/sirupsen/logrus"
 	httpSwagger "github.com/swaggo/http-swagger/v2"
 	"net/http"
 	"regexp"
@@ -35,8 +34,8 @@ func (h *Handler) InitRoutes() *http.ServeMux {
 
 	middleware := h.userIdentity(h)
 
-	mux.Handle("/auth/sign-in", h)
 	mux.Handle("/auth/sign-up", h)
+	mux.Handle("/auth/sign-in", h)
 
 	mux.Handle("/api/actor", middleware)
 	mux.Handle("/api/actor/", middleware)
@@ -47,7 +46,6 @@ func (h *Handler) InitRoutes() *http.ServeMux {
 	mux.Handle("/api/films/fragments", middleware)
 	mux.Handle("/api/films/sorted", middleware)
 
-	// TODO: need implemented swagger API
 	mux.Handle("/api/swagger/", httpSwagger.Handler(
 		httpSwagger.URL("http://localhost:8000/api/swagger/doc.json"),
 	))
@@ -112,15 +110,8 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		h.GetFilmsWithFragment(w, r)
 		return
 
-	// Get swagger API
-	case r.Method == http.MethodGet && SwaggerRe.MatchString(r.URL.RequestURI()):
-		h.GetSwaggerAPI(w, r)
-		return
-
 	// Another Path
 	default:
-		logrus.Infof("Requested URL: %s", r.URL.RequestURI())
-
 		newErrorResponse(w, http.StatusNotFound, "404 Not Found")
 		return
 	}
