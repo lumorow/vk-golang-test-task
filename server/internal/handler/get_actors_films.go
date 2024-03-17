@@ -46,7 +46,7 @@ func (h *Handler) GetActorsWithFilms(w http.ResponseWriter, r *http.Request) {
 		actorsId[i] = actorId
 	}
 
-	res, err := h.services.GetActorsWithFilms(actorsId)
+	res, err := h.Service.GetActorsWithFilms(actorsId)
 	if err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return

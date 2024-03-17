@@ -2,6 +2,7 @@ package service
 
 import (
 	"filmlib/server/internal/entity"
+	"filmlib/server/internal/handler"
 	"filmlib/server/internal/repository"
 )
 
@@ -32,7 +33,7 @@ type Service struct {
 	Film
 }
 
-func NewService(repo *repository.Repository) *Service {
+func NewService(repo *repository.Repository) handler.Service {
 	return &Service{
 		NewAuthService(repo.Authorization),
 		NewActorService(repo.Actor, repo.Film),

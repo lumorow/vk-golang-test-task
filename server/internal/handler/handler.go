@@ -2,7 +2,7 @@ package handler
 
 import (
 	_ "filmlib/server/docs"
-	"filmlib/server/internal/service"
+	"filmlib/server/internal/entity"
 	"net/http"
 	"regexp"
 
@@ -21,12 +21,27 @@ var (
 	FilmsReWithIDAndWithSort = regexp.MustCompile(`^/api/films/sorted\?(sortType=[a-zA-Z0-9]+&)?(id=[0-9]+(,[0-9]+)*)$`)
 )
 
-type Handler struct {
-	services *service.Service
+type Service interface {
+	CreateUser(user entity.User) (int, error)
+	GenerateToken(username, password string) (string, error)
+	ParseToken(accessToken string) (int, string, error)
+	CreateActor(actor entity.Actor) (int, error)
+	DeleteActorById(id int) error
+	UpdateActorById(id int, actor entity.UpdateActorInput) error
+	GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error)
+	CreateFilm(film entity.Film) (int, error)
+	DeleteFilmById(id int) error
+	UpdateFilmById(id int, film entity.UpdateFilmInput) error
+	GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
+	GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error)
 }
 
-func NewHandler(services *service.Service) *Handler {
-	return &Handler{services: services}
+type Handler struct {
+	Service
+}
+
+func NewHandler(s Service) *Handler {
+	return &Handler{Service: s}
 }
 
 func (h *Handler) InitRoutes() *http.ServeMux {

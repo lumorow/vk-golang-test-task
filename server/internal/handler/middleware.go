@@ -33,7 +33,7 @@ func (h *Handler) userIdentity(next http.Handler) http.Handler {
 			return
 		}
 
-		userId, userRole, err := h.services.ParseToken(headerParts[1])
+		userId, userRole, err := h.Service.ParseToken(headerParts[1])
 		if err != nil {
 			newErrorResponse(w, http.StatusUnauthorized, err.Error())
 			return

@@ -55,7 +55,7 @@ func (h *Handler) UpdateFilmById(w http.ResponseWriter, r *http.Request) {
 
 	*input.Name = slug.Make(*input.Name)
 
-	if err := h.services.UpdateFilmById(filmId, input); err != nil {
+	if err := h.Service.UpdateFilmById(filmId, input); err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
 	}

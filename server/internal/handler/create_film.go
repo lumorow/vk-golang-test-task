@@ -42,7 +42,7 @@ func (h *Handler) CreateFilm(w http.ResponseWriter, r *http.Request) {
 
 	input.Name = slug.Make(input.Name)
 
-	id, err := h.services.CreateFilm(input)
+	id, err := h.Service.CreateFilm(input)
 	if err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
