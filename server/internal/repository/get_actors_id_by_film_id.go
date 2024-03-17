@@ -6,7 +6,7 @@ import (
 
 func (ap *ActorPostgres) GetActorsIdByFilmId(filmId int) ([]int, error) {
 	query := fmt.Sprintf("SELECT actor_id FROM %s WHERE film_id = $1", actorsFilmsTable)
-	rows, err := ap.db.Query(query)
+	rows, err := ap.db.Query(query, filmId)
 	if err != nil {
 		return nil, err
 	}

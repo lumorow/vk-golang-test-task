@@ -60,11 +60,11 @@ func (fp *FilmPostgres) UpdateFilmById(filmId int, deleteIds []int, addIds []int
 
 	setQuery := strings.Join(setValues, ", ")
 
-	query := fmt.Sprintf("UPDATE %s SET %s WHERE id= $%d", filmsTable, setQuery, argId)
+	query := fmt.Sprintf("UPDATE %s SET %s WHERE id = $%d", filmsTable, setQuery, argId)
 
 	args = append(args, filmId)
 
-	_, err = tx.Exec(query, args)
+	_, err = tx.Exec(query, args...)
 	if err != nil {
 		tx.Rollback()
 		return err

@@ -35,7 +35,7 @@ func (ap *ActorPostgres) UpdateActorById(actorId int, actor entity.UpdateActorIn
 
 	args = append(args, actorId)
 
-	_, err := ap.db.Exec(query, args)
+	_, err := ap.db.Exec(query, args...)
 	if err != nil {
 		return err
 	}
