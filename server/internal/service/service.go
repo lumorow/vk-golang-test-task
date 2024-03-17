@@ -4,7 +4,7 @@ import (
 	"filmlib/server/internal/entity"
 )
 
-//go:generate mockgen -destination=mocks/handler.go -package=mock -source=command_handler.go
+//go:generate mockgen -destination=mocks/service.go -package=mock -source=service.go
 //go:generate touch mocks/.coverignore
 
 type Repository interface {

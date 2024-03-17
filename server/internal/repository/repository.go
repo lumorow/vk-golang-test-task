@@ -4,6 +4,9 @@ import (
 	"database/sql"
 )
 
+//go:generate mockgen -destination=mocks/repository.go -package=mock -source=repository.go
+//go:generate touch mocks/.coverignore
+
 type DBTX interface {
 	QueryRow(query string, args ...any) *sql.Row
 	Get(dest interface{}, query string, args ...interface{}) error

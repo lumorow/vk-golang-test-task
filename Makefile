@@ -27,6 +27,7 @@ swag_ui:
 
 PHONY: lint
 lint:
+	golangci-lint run --fix
 	golangci-lint run --config=.golangci.yml ./...
 
 PHONY: cover
