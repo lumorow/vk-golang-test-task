@@ -16,12 +16,32 @@ type DBTX interface {
 	Select(dest interface{}, query string, args ...interface{}) error
 }
 
-type Repository struct {
+type AuthorizationRepository struct {
 	db DBTX
 }
 
-func NewRepository(db DBTX) *Repository {
-	return &Repository{
+type ActorRepository struct {
+	db DBTX
+}
+
+type FilmRepository struct {
+	db DBTX
+}
+
+func NewAuthorizationRepository(db DBTX) *AuthorizationRepository {
+	return &AuthorizationRepository{
+		db,
+	}
+}
+
+func NewActorRepository(db DBTX) *ActorRepository {
+	return &ActorRepository{
+		db,
+	}
+}
+
+func NewFilmRepository(db DBTX) *FilmRepository {
+	return &FilmRepository{
 		db,
 	}
 }

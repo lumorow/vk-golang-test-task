@@ -24,7 +24,6 @@ swag_ui:
 	@echo "Open swagger index.html"
 	open http://localhost:8000/api/swagger
 
-
 PHONY: lint
 lint:
 	golangci-lint run --fix
@@ -32,7 +31,7 @@ lint:
 
 PHONY: cover
 cover:
-	go test ./... -coverprofile /tmp/cover.out && go tool cover -html=/tmp/cover.out
+	go test ./server/internal/service ./server/internal/repository ./server/internal/handler -coverprofile /tmp/cover.out && go tool cover -html=/tmp/cover.out
 
 .PHONY: test
 test: lint cover

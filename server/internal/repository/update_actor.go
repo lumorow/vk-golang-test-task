@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func (r *Repository) UpdateActorById(actorId int, actor entity.UpdateActorInput) error {
+func (r *ActorRepository) UpdateActorById(actorId int, actor entity.UpdateActorInput) error {
 	setValues := make([]string, 0)
 	args := make([]interface{}, 0)
 	argId := 1

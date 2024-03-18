@@ -40,7 +40,7 @@ func (h *Handler) DeleteFilmById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := h.Service.DeleteFilmById(filmId); err != nil {
+	if err := h.FilmService.DeleteFilmById(filmId); err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
 	}

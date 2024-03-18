@@ -50,7 +50,7 @@ func (h *Handler) GetFilmsWithSort(w http.ResponseWriter, r *http.Request) {
 		filmsIds = append(filmsIds, actorId)
 	}
 
-	res, err := h.Service.GetFilmsWithSort(sortType, filmsIds)
+	res, err := h.FilmService.GetFilmsWithSort(sortType, filmsIds)
 	if err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return

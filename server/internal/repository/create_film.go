@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func (r *Repository) CreateFilm(film entity.Film) (int, error) {
+func (r *FilmRepository) CreateFilm(film entity.Film) (int, error) {
 	tx, err := r.db.Begin()
 	if err != nil {
 		return 0, err

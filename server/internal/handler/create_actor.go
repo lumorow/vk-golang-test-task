@@ -42,7 +42,7 @@ func (h *Handler) CreateActor(w http.ResponseWriter, r *http.Request) {
 
 	input.Name = slug.Make(input.Name)
 
-	id, err := h.Service.CreateActor(input)
+	id, err := h.ActorService.CreateActor(input)
 	if err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return

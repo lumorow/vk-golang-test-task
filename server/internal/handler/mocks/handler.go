@@ -11,61 +11,31 @@ import (
 	gomock "github.com/golang/mock/gomock"
 )
 
-// MockService is a mock of Service interface.
-type MockService struct {
+// MockAuthorizationService is a mock of AuthorizationService interface.
+type MockAuthorizationService struct {
 	ctrl     *gomock.Controller
-	recorder *MockServiceMockRecorder
+	recorder *MockAuthorizationServiceMockRecorder
 }
 
-// MockServiceMockRecorder is the mock recorder for MockService.
-type MockServiceMockRecorder struct {
-	mock *MockService
+// MockAuthorizationServiceMockRecorder is the mock recorder for MockAuthorizationService.
+type MockAuthorizationServiceMockRecorder struct {
+	mock *MockAuthorizationService
 }
 
-// NewMockService creates a new mock instance.
-func NewMockService(ctrl *gomock.Controller) *MockService {
-	mock := &MockService{ctrl: ctrl}
-	mock.recorder = &MockServiceMockRecorder{mock}
+// NewMockAuthorizationService creates a new mock instance.
+func NewMockAuthorizationService(ctrl *gomock.Controller) *MockAuthorizationService {
+	mock := &MockAuthorizationService{ctrl: ctrl}
+	mock.recorder = &MockAuthorizationServiceMockRecorder{mock}
 	return mock
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockService) EXPECT() *MockServiceMockRecorder {
+func (m *MockAuthorizationService) EXPECT() *MockAuthorizationServiceMockRecorder {
 	return m.recorder
 }
 
-// CreateActor mocks base method.
-func (m *MockService) CreateActor(actor entity.Actor) (int, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateActor", actor)
-	ret0, _ := ret[0].(int)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// CreateActor indicates an expected call of CreateActor.
-func (mr *MockServiceMockRecorder) CreateActor(actor interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateActor", reflect.TypeOf((*MockService)(nil).CreateActor), actor)
-}
-
-// CreateFilm mocks base method.
-func (m *MockService) CreateFilm(film entity.Film) (int, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateFilm", film)
-	ret0, _ := ret[0].(int)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// CreateFilm indicates an expected call of CreateFilm.
-func (mr *MockServiceMockRecorder) CreateFilm(film interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateFilm", reflect.TypeOf((*MockService)(nil).CreateFilm), film)
-}
-
 // CreateUser mocks base method.
-func (m *MockService) CreateUser(user entity.User) (int, error) {
+func (m *MockAuthorizationService) CreateUser(user entity.User) (int, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateUser", user)
 	ret0, _ := ret[0].(int)
@@ -74,41 +44,13 @@ func (m *MockService) CreateUser(user entity.User) (int, error) {
 }
 
 // CreateUser indicates an expected call of CreateUser.
-func (mr *MockServiceMockRecorder) CreateUser(user interface{}) *gomock.Call {
+func (mr *MockAuthorizationServiceMockRecorder) CreateUser(user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockService)(nil).CreateUser), user)
-}
-
-// DeleteActorById mocks base method.
-func (m *MockService) DeleteActorById(id int) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteActorById", id)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// DeleteActorById indicates an expected call of DeleteActorById.
-func (mr *MockServiceMockRecorder) DeleteActorById(id interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteActorById", reflect.TypeOf((*MockService)(nil).DeleteActorById), id)
-}
-
-// DeleteFilmById mocks base method.
-func (m *MockService) DeleteFilmById(id int) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteFilmById", id)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// DeleteFilmById indicates an expected call of DeleteFilmById.
-func (mr *MockServiceMockRecorder) DeleteFilmById(id interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteFilmById", reflect.TypeOf((*MockService)(nil).DeleteFilmById), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockAuthorizationService)(nil).CreateUser), user)
 }
 
 // GenerateToken mocks base method.
-func (m *MockService) GenerateToken(username, password string) (string, error) {
+func (m *MockAuthorizationService) GenerateToken(username, password string) (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GenerateToken", username, password)
 	ret0, _ := ret[0].(string)
@@ -117,58 +59,13 @@ func (m *MockService) GenerateToken(username, password string) (string, error) {
 }
 
 // GenerateToken indicates an expected call of GenerateToken.
-func (mr *MockServiceMockRecorder) GenerateToken(username, password interface{}) *gomock.Call {
+func (mr *MockAuthorizationServiceMockRecorder) GenerateToken(username, password interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GenerateToken", reflect.TypeOf((*MockService)(nil).GenerateToken), username, password)
-}
-
-// GetActorsWithFilms mocks base method.
-func (m *MockService) GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetActorsWithFilms", actorsId)
-	ret0, _ := ret[0].([]entity.ActorFilms)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetActorsWithFilms indicates an expected call of GetActorsWithFilms.
-func (mr *MockServiceMockRecorder) GetActorsWithFilms(actorsId interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetActorsWithFilms", reflect.TypeOf((*MockService)(nil).GetActorsWithFilms), actorsId)
-}
-
-// GetFilmWithFragment mocks base method.
-func (m *MockService) GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetFilmWithFragment", actorNameFrag, filmNameFrag)
-	ret0, _ := ret[0].([]entity.Film)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetFilmWithFragment indicates an expected call of GetFilmWithFragment.
-func (mr *MockServiceMockRecorder) GetFilmWithFragment(actorNameFrag, filmNameFrag interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFilmWithFragment", reflect.TypeOf((*MockService)(nil).GetFilmWithFragment), actorNameFrag, filmNameFrag)
-}
-
-// GetFilmsWithSort mocks base method.
-func (m *MockService) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetFilmsWithSort", sortType, filmsId)
-	ret0, _ := ret[0].([]entity.Film)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetFilmsWithSort indicates an expected call of GetFilmsWithSort.
-func (mr *MockServiceMockRecorder) GetFilmsWithSort(sortType, filmsId interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFilmsWithSort", reflect.TypeOf((*MockService)(nil).GetFilmsWithSort), sortType, filmsId)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GenerateToken", reflect.TypeOf((*MockAuthorizationService)(nil).GenerateToken), username, password)
 }
 
 // ParseToken mocks base method.
-func (m *MockService) ParseToken(accessToken string) (int, string, error) {
+func (m *MockAuthorizationService) ParseToken(accessToken string) (int, string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ParseToken", accessToken)
 	ret0, _ := ret[0].(int)
@@ -178,13 +75,80 @@ func (m *MockService) ParseToken(accessToken string) (int, string, error) {
 }
 
 // ParseToken indicates an expected call of ParseToken.
-func (mr *MockServiceMockRecorder) ParseToken(accessToken interface{}) *gomock.Call {
+func (mr *MockAuthorizationServiceMockRecorder) ParseToken(accessToken interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ParseToken", reflect.TypeOf((*MockService)(nil).ParseToken), accessToken)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ParseToken", reflect.TypeOf((*MockAuthorizationService)(nil).ParseToken), accessToken)
+}
+
+// MockActorService is a mock of ActorService interface.
+type MockActorService struct {
+	ctrl     *gomock.Controller
+	recorder *MockActorServiceMockRecorder
+}
+
+// MockActorServiceMockRecorder is the mock recorder for MockActorService.
+type MockActorServiceMockRecorder struct {
+	mock *MockActorService
+}
+
+// NewMockActorService creates a new mock instance.
+func NewMockActorService(ctrl *gomock.Controller) *MockActorService {
+	mock := &MockActorService{ctrl: ctrl}
+	mock.recorder = &MockActorServiceMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockActorService) EXPECT() *MockActorServiceMockRecorder {
+	return m.recorder
+}
+
+// CreateActor mocks base method.
+func (m *MockActorService) CreateActor(actor entity.Actor) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateActor", actor)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateActor indicates an expected call of CreateActor.
+func (mr *MockActorServiceMockRecorder) CreateActor(actor interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateActor", reflect.TypeOf((*MockActorService)(nil).CreateActor), actor)
+}
+
+// DeleteActorById mocks base method.
+func (m *MockActorService) DeleteActorById(id int) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteActorById", id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteActorById indicates an expected call of DeleteActorById.
+func (mr *MockActorServiceMockRecorder) DeleteActorById(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteActorById", reflect.TypeOf((*MockActorService)(nil).DeleteActorById), id)
+}
+
+// GetActorsWithFilms mocks base method.
+func (m *MockActorService) GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetActorsWithFilms", actorsId)
+	ret0, _ := ret[0].([]entity.ActorFilms)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetActorsWithFilms indicates an expected call of GetActorsWithFilms.
+func (mr *MockActorServiceMockRecorder) GetActorsWithFilms(actorsId interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetActorsWithFilms", reflect.TypeOf((*MockActorService)(nil).GetActorsWithFilms), actorsId)
 }
 
 // UpdateActorById mocks base method.
-func (m *MockService) UpdateActorById(id int, actor entity.UpdateActorInput) error {
+func (m *MockActorService) UpdateActorById(id int, actor entity.UpdateActorInput) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateActorById", id, actor)
 	ret0, _ := ret[0].(error)
@@ -192,13 +156,95 @@ func (m *MockService) UpdateActorById(id int, actor entity.UpdateActorInput) err
 }
 
 // UpdateActorById indicates an expected call of UpdateActorById.
-func (mr *MockServiceMockRecorder) UpdateActorById(id, actor interface{}) *gomock.Call {
+func (mr *MockActorServiceMockRecorder) UpdateActorById(id, actor interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateActorById", reflect.TypeOf((*MockService)(nil).UpdateActorById), id, actor)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateActorById", reflect.TypeOf((*MockActorService)(nil).UpdateActorById), id, actor)
+}
+
+// MockFilmService is a mock of FilmService interface.
+type MockFilmService struct {
+	ctrl     *gomock.Controller
+	recorder *MockFilmServiceMockRecorder
+}
+
+// MockFilmServiceMockRecorder is the mock recorder for MockFilmService.
+type MockFilmServiceMockRecorder struct {
+	mock *MockFilmService
+}
+
+// NewMockFilmService creates a new mock instance.
+func NewMockFilmService(ctrl *gomock.Controller) *MockFilmService {
+	mock := &MockFilmService{ctrl: ctrl}
+	mock.recorder = &MockFilmServiceMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockFilmService) EXPECT() *MockFilmServiceMockRecorder {
+	return m.recorder
+}
+
+// CreateFilm mocks base method.
+func (m *MockFilmService) CreateFilm(film entity.Film) (int, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateFilm", film)
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateFilm indicates an expected call of CreateFilm.
+func (mr *MockFilmServiceMockRecorder) CreateFilm(film interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateFilm", reflect.TypeOf((*MockFilmService)(nil).CreateFilm), film)
+}
+
+// DeleteFilmById mocks base method.
+func (m *MockFilmService) DeleteFilmById(id int) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteFilmById", id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteFilmById indicates an expected call of DeleteFilmById.
+func (mr *MockFilmServiceMockRecorder) DeleteFilmById(id interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteFilmById", reflect.TypeOf((*MockFilmService)(nil).DeleteFilmById), id)
+}
+
+// GetFilmWithFragment mocks base method.
+func (m *MockFilmService) GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetFilmWithFragment", actorNameFrag, filmNameFrag)
+	ret0, _ := ret[0].([]entity.Film)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetFilmWithFragment indicates an expected call of GetFilmWithFragment.
+func (mr *MockFilmServiceMockRecorder) GetFilmWithFragment(actorNameFrag, filmNameFrag interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFilmWithFragment", reflect.TypeOf((*MockFilmService)(nil).GetFilmWithFragment), actorNameFrag, filmNameFrag)
+}
+
+// GetFilmsWithSort mocks base method.
+func (m *MockFilmService) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetFilmsWithSort", sortType, filmsId)
+	ret0, _ := ret[0].([]entity.Film)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetFilmsWithSort indicates an expected call of GetFilmsWithSort.
+func (mr *MockFilmServiceMockRecorder) GetFilmsWithSort(sortType, filmsId interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFilmsWithSort", reflect.TypeOf((*MockFilmService)(nil).GetFilmsWithSort), sortType, filmsId)
 }
 
 // UpdateFilmById mocks base method.
-func (m *MockService) UpdateFilmById(id int, film entity.UpdateFilmInput) error {
+func (m *MockFilmService) UpdateFilmById(id int, film entity.UpdateFilmInput) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateFilmById", id, film)
 	ret0, _ := ret[0].(error)
@@ -206,7 +252,7 @@ func (m *MockService) UpdateFilmById(id int, film entity.UpdateFilmInput) error 
 }
 
 // UpdateFilmById indicates an expected call of UpdateFilmById.
-func (mr *MockServiceMockRecorder) UpdateFilmById(id, film interface{}) *gomock.Call {
+func (mr *MockFilmServiceMockRecorder) UpdateFilmById(id, film interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateFilmById", reflect.TypeOf((*MockService)(nil).UpdateFilmById), id, film)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateFilmById", reflect.TypeOf((*MockFilmService)(nil).UpdateFilmById), id, film)
 }

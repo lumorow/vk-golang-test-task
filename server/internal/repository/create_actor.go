@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func (r *Repository) CreateActor(actor entity.Actor) (int, error) {
+func (r *ActorRepository) CreateActor(actor entity.Actor) (int, error) {
 	var actorId int
 	createActorQuery := fmt.Sprintf("INSERT INTO %s (name, sex, birthday) values ($1, $2, $3) RETURNING id", actorsTable)
 

@@ -29,7 +29,7 @@ func (h *Handler) GetFilmsWithFragment(w http.ResponseWriter, r *http.Request) {
 	actorNameFrag := r.URL.Query().Get("actorNameFr")
 	filmNameFrag := r.URL.Query().Get("filmNameFr")
 
-	res, err := h.Service.GetFilmWithFragment(actorNameFrag, filmNameFrag)
+	res, err := h.FilmService.GetFilmWithFragment(actorNameFrag, filmNameFrag)
 	if err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return

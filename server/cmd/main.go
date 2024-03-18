@@ -60,9 +60,15 @@ func main() {
 		logrus.Fatalf("error init sql tables: %s", err.Error())
 	}
 
-	repos := repository.NewRepository(dbConn)
-	services := service.NewService(repos)
-	handlers := handler.NewHandler(services)
+	authRepos := repository.NewAuthorizationRepository(dbConn)
+	actorRepos := repository.NewActorRepository(dbConn)
+	filmRepos := repository.NewFilmRepository(dbConn)
+
+	authService := service.NewAuthorizationService(authRepos)
+	actorService := service.NewActorService(actorRepos, filmRepos)
+	filmService := service.NewFilmService(actorRepos, filmRepos)
+
+	handlers := handler.NewHandler(authService, actorService, filmService)
 
 	srv := new(server.Server)
 

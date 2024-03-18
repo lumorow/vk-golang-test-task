@@ -24,14 +24,20 @@ var (
 	FilmsReWithIDAndWithSort = regexp.MustCompile(`^/api/films/sorted\?(sortType=[a-zA-Z0-9]+&)?(id=[0-9]+(,[0-9]+)*)$`)
 )
 
-type Service interface {
+type AuthorizationService interface {
 	CreateUser(user entity.User) (int, error)
 	GenerateToken(username, password string) (string, error)
 	ParseToken(accessToken string) (int, string, error)
+}
+
+type ActorService interface {
 	CreateActor(actor entity.Actor) (int, error)
 	DeleteActorById(id int) error
 	UpdateActorById(id int, actor entity.UpdateActorInput) error
 	GetActorsWithFilms(actorsId []int) ([]entity.ActorFilms, error)
+}
+
+type FilmService interface {
 	CreateFilm(film entity.Film) (int, error)
 	DeleteFilmById(id int) error
 	UpdateFilmById(id int, film entity.UpdateFilmInput) error
@@ -40,12 +46,16 @@ type Service interface {
 }
 
 type Handler struct {
-	Service
+	AuthorizationService
+	ActorService
+	FilmService
 }
 
-func NewHandler(service Service) *Handler {
+func NewHandler(authService AuthorizationService, actorService ActorService, filmService FilmService) *Handler {
 	return &Handler{
-		service,
+		authService,
+		actorService,
+		filmService,
 	}
 }
 

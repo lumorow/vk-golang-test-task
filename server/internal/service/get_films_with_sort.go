@@ -5,7 +5,7 @@ import (
 	"filmlib/server/internal/entity"
 )
 
-func (s *Service) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
+func (s *FilmService) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
 	if sortType == "" {
 		sortType = "rating"
 	}
@@ -16,7 +16,7 @@ func (s *Service) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Fil
 		return nil, errors.New("unknown sort type")
 	}
 
-	res, err := s.Repository.GetFilmsWithSort(sortType, filmsId)
+	res, err := s.Film.GetFilmsWithSort(sortType, filmsId)
 	if err != nil {
 		return nil, err
 	}

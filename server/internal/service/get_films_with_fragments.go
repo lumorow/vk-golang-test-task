@@ -4,8 +4,8 @@ import (
 	"filmlib/server/internal/entity"
 )
 
-func (s *Service) GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
-	res, err := s.Repository.GetFilmsWithFragment(actorNameFrag, filmNameFrag)
+func (s *FilmService) GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
+	res, err := s.Film.GetFilmsWithFragment(actorNameFrag, filmNameFrag)
 	if err != nil {
 		return nil, err
 	}

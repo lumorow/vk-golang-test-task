@@ -53,9 +53,11 @@ func (h *Handler) UpdateActorById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	*input.Name = slug.Make(*input.Name)
+	if input.Name != nil {
+		*input.Name = slug.Make(*input.Name)
+	}
 
-	if err := h.Service.UpdateActorById(actorId, input); err != nil {
+	if err := h.ActorService.UpdateActorById(actorId, input); err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
 	}

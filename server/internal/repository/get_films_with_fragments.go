@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func (r *Repository) GetFilmsWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
+func (r *FilmRepository) GetFilmsWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
 	var films []entity.Film
 
 	if actorNameFrag == "" {

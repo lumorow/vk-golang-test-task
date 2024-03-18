@@ -22,18 +22,18 @@ const (
 	tokenTTL   = 12 * time.Hour
 )
 
-func (s *Service) CreateUser(user entity.User) (int, error) {
+func (s *AuthorizationService) CreateUser(user entity.User) (int, error) {
 	if _, ok := s.roles[user.Role]; !ok {
 		return 0, errors.New("unknown role")
 	}
 
 	user.Password = generatePasswordHash(user.Password)
 
-	return s.Repository.CreateUser(user)
+	return s.Authorization.CreateUser(user)
 }
 
-func (s *Service) GenerateToken(username, password string) (string, error) {
-	user, err := s.Repository.GetUser(username, generatePasswordHash(password))
+func (s *AuthorizationService) GenerateToken(username, password string) (string, error) {
+	user, err := s.Authorization.GetUser(username, generatePasswordHash(password))
 	if err != nil {
 		return "", err
 	}
@@ -50,7 +50,7 @@ func (s *Service) GenerateToken(username, password string) (string, error) {
 	return token.SignedString([]byte(signingKey))
 }
 
-func (s *Service) ParseToken(accessToken string) (int, string, error) {
+func (s *AuthorizationService) ParseToken(accessToken string) (int, string, error) {
 	token, err := jwt.ParseWithClaims(accessToken, &tokenClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid signing method")

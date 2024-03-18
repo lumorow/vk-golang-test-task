@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func (r *Repository) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
+func (r *FilmRepository) GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error) {
 	var films []entity.Film
 
 	var trimFilmsId string

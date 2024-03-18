@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func (r *Repository) GetActorsIdByFilmId(filmId int) ([]int, error) {
+func (r *ActorRepository) GetActorsIdByFilmId(filmId int) ([]int, error) {
 	query := fmt.Sprintf("SELECT actor_id FROM %s WHERE film_id = $1", actorsFilmsTable)
 	rows, err := r.db.Query(query, filmId)
 	if err != nil {

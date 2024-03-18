@@ -27,7 +27,7 @@ func (h *Handler) signUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, err := h.Service.CreateUser(input)
+	id, err := h.AuthorizationService.CreateUser(input)
 	if err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
@@ -62,7 +62,7 @@ func (h *Handler) signIn(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := h.Service.GenerateToken(input.Username, input.Password)
+	token, err := h.AuthorizationService.GenerateToken(input.Username, input.Password)
 	if err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return

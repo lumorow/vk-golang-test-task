@@ -40,7 +40,7 @@ func (h *Handler) DeleteActorById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := h.Service.DeleteActorById(actorId); err != nil {
+	if err := h.ActorService.DeleteActorById(actorId); err != nil {
 		newErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
 	}

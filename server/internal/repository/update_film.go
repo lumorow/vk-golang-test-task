@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func (r *Repository) UpdateFilmById(filmId int, deleteIds []int, addIds []int, film entity.UpdateFilmInput) error {
+func (r *FilmRepository) UpdateFilmById(filmId int, deleteIds []int, addIds []int, film entity.UpdateFilmInput) error {
 	tx, err := r.db.Begin()
 	if err != nil {
 		return err
