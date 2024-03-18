@@ -476,7 +476,7 @@ func TestHandler_GetFilmsWithFragment(t *testing.T) {
 				ctx := context.WithValue(args.r.Context(), UserIdHeader, "1")
 				ctx = context.WithValue(ctx, userRoleHeader, "admin")
 
-				fields.FilmService.EXPECT().GetFilmWithFragment("abc", "cba").Return([]entity.Film{}, nil)
+				fields.FilmService.EXPECT().GetFilmsWithFragment("abc", "cba").Return([]entity.Film{}, nil)
 
 				return args.r.WithContext(ctx)
 			},
@@ -490,7 +490,7 @@ func TestHandler_GetFilmsWithFragment(t *testing.T) {
 				ctx := context.WithValue(args.r.Context(), UserIdHeader, "1")
 				ctx = context.WithValue(ctx, userRoleHeader, "admin")
 
-				fields.FilmService.EXPECT().GetFilmWithFragment("abc", "cba").Return(nil, errors.New(""))
+				fields.FilmService.EXPECT().GetFilmsWithFragment("abc", "cba").Return(nil, errors.New(""))
 
 				return args.r.WithContext(ctx)
 			},

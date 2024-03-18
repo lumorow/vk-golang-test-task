@@ -41,7 +41,7 @@ type FilmService interface {
 	CreateFilm(film entity.Film) (int, error)
 	DeleteFilmById(id int) error
 	UpdateFilmById(id int, film entity.UpdateFilmInput) error
-	GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
+	GetFilmsWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error)
 	GetFilmsWithSort(sortType string, filmsId []int) ([]entity.Film, error)
 }
 

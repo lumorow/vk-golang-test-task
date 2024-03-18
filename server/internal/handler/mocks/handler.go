@@ -213,19 +213,19 @@ func (mr *MockFilmServiceMockRecorder) DeleteFilmById(id interface{}) *gomock.Ca
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteFilmById", reflect.TypeOf((*MockFilmService)(nil).DeleteFilmById), id)
 }
 
-// GetFilmWithFragment mocks base method.
-func (m *MockFilmService) GetFilmWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
+// GetFilmsWithFragment mocks base method.
+func (m *MockFilmService) GetFilmsWithFragment(actorNameFrag, filmNameFrag string) ([]entity.Film, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetFilmWithFragment", actorNameFrag, filmNameFrag)
+	ret := m.ctrl.Call(m, "GetFilmsWithFragment", actorNameFrag, filmNameFrag)
 	ret0, _ := ret[0].([]entity.Film)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetFilmWithFragment indicates an expected call of GetFilmWithFragment.
-func (mr *MockFilmServiceMockRecorder) GetFilmWithFragment(actorNameFrag, filmNameFrag interface{}) *gomock.Call {
+// GetFilmsWithFragment indicates an expected call of GetFilmsWithFragment.
+func (mr *MockFilmServiceMockRecorder) GetFilmsWithFragment(actorNameFrag, filmNameFrag interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFilmWithFragment", reflect.TypeOf((*MockFilmService)(nil).GetFilmWithFragment), actorNameFrag, filmNameFrag)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetFilmsWithFragment", reflect.TypeOf((*MockFilmService)(nil).GetFilmsWithFragment), actorNameFrag, filmNameFrag)
 }
 
 // GetFilmsWithSort mocks base method.
